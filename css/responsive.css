@@ -1,0 +1,116 @@
+/* ================================
+   TABLET
+================================ */
+
+@media (min-width: 768px) {
+
+    .home {
+        padding:
+            35px
+            40px
+            110px;
+    }
+
+    .app-header {
+        padding:
+            15px
+            40px;
+    }
+
+    .header-logo img {
+        width: 125px;
+    }
+
+    .categories {
+        max-width: 550px;
+    }
+
+    .category-icon {
+        width: 75px;
+        height: 75px;
+    }
+
+    .products-grid {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+}
+
+
+/* ================================
+   COMPUTADOR
+================================ */
+
+@media (min-width: 1024px) {
+
+    .home {
+        padding-top: 45px;
+    }
+
+    .home-welcome h1 {
+        font-size: 32px;
+    }
+
+    .search-container {
+        max-width: 600px;
+    }
+
+    .products-grid {
+        grid-template-columns:
+            repeat(4, 1fr);
+    }
+
+
+    /*
+       No computador a barra inferior
+       fica centralizada.
+    */
+
+    .bottom-navigation {
+        width: 500px;
+
+        left: 50%;
+
+        transform:
+            translateX(-50%);
+
+        bottom: 15px;
+
+        border:
+            1px solid #e5edf1;
+
+        border-radius: 22px;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    .product-modal-overlay {
+        align-items: center;
+
+        padding: 30px;
+    }
+
+
+    .product-modal {
+        max-width: 520px;
+
+        border-radius: 28px;
+
+        transform:
+            translateY(30px)
+            scale(0.97);
+    }
+
+
+    .product-modal-overlay.active
+    .product-modal {
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}

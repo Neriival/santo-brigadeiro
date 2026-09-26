@@ -1,0 +1,151 @@
+<!-- =========================
+     MODAL DO PRODUTO
+========================== -->
+
+<div
+    class="product-modal-overlay"
+    id="productModalOverlay"
+>
+
+    <div
+        class="product-modal"
+        id="productModal"
+    >
+
+        <!-- BOTÃO FECHAR -->
+        <button
+            class="modal-close"
+            id="modalClose"
+            type="button"
+            aria-label="Fechar produto"
+        >
+            ×
+        </button>
+
+
+        <!-- IMAGEM -->
+        <div
+            class="modal-product-image"
+            id="modalProductImage"
+        >
+            <div class="modal-no-image">
+                🎂
+            </div>
+        </div>
+
+
+        <!-- INFORMAÇÕES -->
+        <div class="modal-product-content">
+
+            <span
+                class="modal-category"
+                id="modalCategory"
+            >
+                Categoria
+            </span>
+
+
+            <h2 id="modalProductName">
+                Produto
+            </h2>
+
+
+            <p
+                class="modal-description"
+                id="modalProductDescription"
+            >
+                Descrição do produto.
+            </p>
+
+
+            <strong
+                class="modal-price"
+                id="modalProductPrice"
+            >
+                R$ 0,00
+            </strong>
+
+
+            <!-- OPÇÕES PERSONALIZADAS -->
+            <div
+                class="product-options"
+                id="productOptions"
+            ></div>
+
+
+            <!-- QUANTIDADE -->
+            <div class="modal-option">
+
+                <label>
+                    Quantidade
+                </label>
+
+                <div class="quantity-control">
+
+                    <button
+                        type="button"
+                        id="decreaseQuantity"
+                    >
+                        −
+                    </button>
+
+                    <span id="productQuantity">
+                        1
+                    </span>
+
+                    <button
+                        type="button"
+                        id="increaseQuantity"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- OBSERVAÇÃO -->
+            <div class="modal-option">
+
+                <label
+                    for="productObservation"
+                    id="productObservationLabel"
+                >
+                    Alguma observação?
+                </label>
+
+                <textarea
+                    id="productObservation"
+                    placeholder="Ex: escrever nome no bolo, retirar algum ingrediente..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- TOTAL -->
+            <div class="modal-total">
+
+                <span>Total</span>
+
+                <strong id="modalTotal">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+
+            <!-- ADICIONAR -->
+            <button
+                class="modal-add-cart"
+                id="modalAddCart"
+                type="button"
+            >
+                🛒 Adicionar ao carrinho
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

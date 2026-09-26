@@ -1,0 +1,342 @@
+<!-- =========================
+     FINALIZAR PEDIDO
+========================== -->
+
+<div
+    class="checkout-overlay"
+    id="checkoutOverlay"
+>
+
+    <div class="checkout">
+
+        <!-- CABEÇALHO -->
+
+        <div class="checkout-header">
+
+            <button
+                class="checkout-back"
+                id="checkoutBack"
+                type="button"
+                aria-label="Voltar ao carrinho"
+            >
+                ←
+            </button>
+
+            <div>
+                <span>Quase lá 💙</span>
+                <h2>Finalizar pedido</h2>
+            </div>
+
+            <button
+                class="checkout-close"
+                id="checkoutClose"
+                type="button"
+                aria-label="Fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- CONTEÚDO -->
+
+        <div class="checkout-content">
+
+            <form id="checkoutForm">
+
+                <!-- DADOS DO CLIENTE -->
+
+                <div class="checkout-section">
+
+                    <h3>Seus dados</h3>
+
+                    <div class="checkout-field">
+
+                        <label for="customerName">
+                            Nome *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="customerName"
+                            placeholder="Digite seu nome"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-field">
+
+                        <label for="customerPhone">
+                            WhatsApp *
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="customerPhone"
+                            placeholder="(13) 99999-9999"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORMA DE RECEBIMENTO -->
+
+                <div class="checkout-section">
+
+                    <h3>Como deseja receber?</h3>
+
+                    <div class="delivery-options">
+
+                        <button
+                            class="delivery-option active"
+                            type="button"
+                            data-delivery="retirada"
+                        >
+                            <span>🏪</span>
+
+                            <div>
+                                <strong>Retirada</strong>
+                                <small>
+                                    Retirar no local
+                                </small>
+                            </div>
+                        </button>
+
+
+                        <button
+                            class="delivery-option"
+                            type="button"
+                            data-delivery="entrega"
+                        >
+                            <span>🛵</span>
+
+                            <div>
+                                <strong>Entrega</strong>
+                                <small>
+                                    Receber no endereço
+                                </small>
+                            </div>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ENDEREÇO -->
+
+                <div
+                    class="checkout-section checkout-address"
+                    id="checkoutAddress"
+                >
+
+                    <h3>Endereço de entrega</h3>
+
+
+                    <div class="checkout-field">
+
+                        <label for="customerNeighborhood">
+                            Bairro *
+                        </label>
+
+                        <select id="customerNeighborhood">
+
+                            <option value="">
+                                Selecione seu bairro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="checkout-row">
+
+                    <div class="checkout-field">
+
+                        <label for="customerStreet">
+                            Rua / Avenida *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="customerStreet"
+                            placeholder="Ex: Av. Presidente Kennedy"
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-field">
+
+                        <label for="customerNumber">
+                            Número *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="customerNumber"
+                            placeholder="123"
+                        >
+
+                    </div>
+
+
+                    <div class="checkout-field">
+
+                        <label for="customerComplement">
+                            Complemento
+                        </label>
+
+                        <input
+                            type="text"
+                            id="customerComplement"
+                            placeholder="Apartamento, bloco, referência..."
+                        >
+
+                    </div>
+
+                </div>
+
+                </div>
+
+
+                <!-- DATA -->
+
+                <div class="checkout-section">
+
+                    <h3>Quando deseja?</h3>
+
+
+                    <div class="checkout-row">
+
+                        <div class="checkout-field">
+
+                            <label for="orderDate">
+                                Data *
+                            </label>
+
+                            <input
+                                type="date"
+                                id="orderDate"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="checkout-field">
+
+                            <label for="orderTime">
+                                Horário *
+                            </label>
+
+                            <input
+                                type="time"
+                                id="orderTime"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OBSERVAÇÃO GERAL -->
+
+                <div class="checkout-section">
+
+                    <div class="checkout-field">
+
+                        <label for="orderObservation">
+                            Observação do pedido
+                        </label>
+
+                        <textarea
+                            id="orderObservation"
+                            placeholder="Alguma informação adicional sobre o pedido?"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESUMO -->
+
+                <div class="checkout-values">
+
+                    <!-- SUBTOTAL -->
+
+                    <div class="checkout-value-row">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong id="checkoutSubtotal">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+
+                    <!-- ENTREGA -->
+
+                    <div
+                        class="checkout-value-row"
+                        id="deliveryFeeRow"
+                    >
+
+                        <span id="deliveryFeeLabel">
+                            Taxa de entrega
+                        </span>
+
+                        <strong id="checkoutDeliveryFee">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+
+                    <!-- TOTAL -->
+
+                    <div class="checkout-total">
+
+                        <span>
+                            Total do pedido
+                        </span>
+
+                        <strong id="checkoutTotal">
+                            R$ 0,00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONTINUAR -->
+
+                <button
+                    class="checkout-submit"
+                    type="submit"
+                >
+                    Revisar pedido →
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

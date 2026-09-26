@@ -1,0 +1,386 @@
+/* =========================================
+   FINALIZAR PEDIDO - SANTO BRIGADEIRO
+========================================= */
+
+.checkout-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: flex-end;
+
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(4px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    z-index: 2100;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+.checkout-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================================
+   PAINEL
+========================================= */
+
+.checkout {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+
+    overflow: hidden;
+}
+
+.checkout-overlay.active .checkout {
+    transform: translateX(0);
+}
+
+
+/* =========================================
+   CABEÇALHO
+========================================= */
+
+.checkout-header {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+.checkout-header > div {
+    flex: 1;
+}
+
+.checkout-header span {
+    display: block;
+
+    margin-bottom: 2px;
+
+    font-size: 12px;
+
+    color: #888888;
+}
+
+.checkout-header h2 {
+    margin: 0;
+
+    font-size: 21px;
+}
+
+.checkout-back,
+.checkout-close {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f4f4f4;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.checkout-back:hover,
+.checkout-close:hover {
+    background: #e8f4fc;
+}
+
+
+/* =========================================
+   CONTEÚDO
+========================================= */
+
+.checkout-content {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 20px;
+}
+
+.checkout-section {
+    margin-bottom: 25px;
+}
+
+.checkout-section h3 {
+    margin: 0 0 15px;
+
+    font-size: 17px;
+}
+
+
+/* =========================================
+   CAMPOS
+========================================= */
+
+.checkout-field {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-bottom: 15px;
+}
+
+.checkout-field label {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.checkout-field input,
+.checkout-field select,
+.checkout-field textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    font: inherit;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.checkout-field input:focus,
+.checkout-field select:focus,
+.checkout-field textarea:focus {
+    border-color: #9bcfec;
+
+    box-shadow:
+        0 0 0 3px rgba(155, 207, 236, 0.18);
+}
+
+.checkout-field textarea {
+    min-height: 90px;
+
+    resize: vertical;
+}
+
+.checkout-row {
+    display: flex;
+
+    gap: 12px;
+}
+
+
+/* =========================================
+   RETIRADA / ENTREGA
+========================================= */
+
+.delivery-options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+}
+
+.delivery-option {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    border: 2px solid #eeeeee;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.delivery-option > span {
+    font-size: 25px;
+}
+
+.delivery-option div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.delivery-option strong {
+    font-size: 14px;
+}
+
+.delivery-option small {
+    color: #888888;
+}
+
+.delivery-option.active {
+    border-color: #9bcfec;
+
+    background: #f2faff;
+}
+
+
+/* =========================================
+   ENDEREÇO
+========================================= */
+
+.checkout-address {
+    display: none;
+}
+
+.checkout-address.active {
+    display: block;
+}
+
+
+
+.checkout-values {
+    margin-top: 10px;
+}
+
+.checkout-value-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 5px;
+    font-size: 14px;
+}
+
+.checkout-value-row span {
+    color: #666666;
+}
+
+.checkout-value-row strong {
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+#deliveryFeeRow {
+    display: none;
+}
+
+/* =========================================
+   TOTAL
+========================================= */
+
+.checkout-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 10px;
+    margin-bottom: 18px;
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    background: #f2faff;
+}
+
+.checkout-total span {
+    font-size: 14px;
+}
+
+.checkout-total strong {
+    font-size: 23px;
+}
+
+
+/* =========================================
+   BOTÃO
+========================================= */
+
+.checkout-submit {
+    width: 100%;
+
+    padding: 16px;
+
+    margin-bottom: 20px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #bcdff5;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.checkout-submit:hover {
+    transform: translateY(-1px);
+
+    filter: brightness(0.97);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .checkout {
+        max-width: 100%;
+    }
+
+    .checkout-content {
+        padding: 16px;
+    }
+
+    .checkout-row {
+        flex-direction: column;
+
+        gap: 0;
+    }
+
+    .delivery-options {
+        grid-template-columns: 1fr;
+    }
+
+}
