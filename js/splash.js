@@ -1,11 +1,23 @@
+/* =============================================
+   SPLASH V9
+   Controla somente a animação de entrada.
+============================================= */
 const splashScreen = document.getElementById("splashScreen");
 
-window.addEventListener("load", () => {
+function finalizarSplash() {
+    if (!splashScreen) return;
 
-    setTimeout(() => {
+    splashScreen.classList.add("finish");
 
+    window.setTimeout(() => {
         splashScreen.classList.add("hide");
+        document.body.classList.add("app-ready");
+    }, 480);
+}
 
-    }, 2500);
+window.addEventListener("load", () => {
+    if (!splashScreen) return;
 
+    // Mantém a abertura curta para não atrasar o cliente.
+    window.setTimeout(finalizarSplash, 2450);
 });

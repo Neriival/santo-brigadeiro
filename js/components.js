@@ -2,222 +2,50 @@
    COMPONENTES - SANTO BRIGADEIRO
 ========================================================= */
 
-
-/* =========================================================
-   CARREGAR COMPONENTE
-========================================================= */
-
-async function carregarComponente(
-    caminho,
-    containerId
-) {
-
+async function carregarComponente(caminho, containerId) {
     try {
+        const resposta = await fetch(caminho);
+        if (!resposta.ok) throw new Error(`Erro ao carregar ${caminho}`);
 
-        const resposta =
-            await fetch(caminho);
-
-
-        if (!resposta.ok) {
-
-            throw new Error(
-                `Erro ao carregar ${caminho}`
-            );
-
-        }
-
-
-        const html =
-            await resposta.text();
-
-
-        const container =
-            document.getElementById(
-                containerId
-            );
-
-
-        if (container) {
-
-            container.innerHTML =
-                html;
-
-        }
-
-
+        const container = document.getElementById(containerId);
+        if (container) container.innerHTML = await resposta.text();
     } catch (erro) {
-
-        console.error(
-            "Erro ao carregar componente:",
-            erro
-        );
-
+        console.error("Erro ao carregar componente:", erro);
     }
-
 }
-
-
-/* =========================================================
-   CARREGAR SCRIPT
-========================================================= */
 
 function carregarScript(caminho) {
-
-    return new Promise(
-        (resolve, reject) => {
-
-            const script =
-                document.createElement(
-                    "script"
-                );
-
-
-            script.src =
-                caminho;
-
-
-            script.onload =
-                resolve;
-
-
-            script.onerror =
-                reject;
-
-
-            document.body.appendChild(
-                script
-            );
-
-        }
-    );
-
+    return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = caminho;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+    });
 }
-
-
-/* =========================================================
-   INICIAR COMPONENTES
-========================================================= */
 
 async function iniciarComponentes() {
+    await carregarComponente("sections/header.html", "header-container");
+    await carregarComponente("sections/home.html", "home-container");
+    await carregarComponente("sections/bottom-navigation.html", "navigation-container");
+    await carregarComponente("sections/modal-produto.html", "modal-produto-container");
+    await carregarComponente("sections/carrinho.html", "carrinho-container");
+    await carregarComponente("sections/finalizar-pedido.html", "checkout-container");
+    await carregarComponente("sections/revisar-pedido.html", "review-container");
 
+    /* O app precisa do HTML da home antes de configurar categorias/busca. */
+    document.dispatchEvent(new Event("componentsLoaded"));
 
-    /* HEADER */
-
-    await carregarComponente(
-        "sections/header.html",
-        "header-container"
-    );
-
-
-    /* HOME */
-
-    await carregarComponente(
-        "sections/home.html",
-        "home-container"
-    );
-
-
-    /* NAVEGAÇÃO */
-
-    await carregarComponente(
-        "sections/bottom-navigation.html",
-        "navigation-container"
-    );
-
-
-    /* MODAL DO PRODUTO */
-
-    await carregarComponente(
-        "sections/modal-produto.html",
-        "modal-produto-container"
-    );
-
-
-    /* CARRINHO */
-
-    await carregarComponente(
-        "sections/carrinho.html",
-        "carrinho-container"
-    );
-
-
-    /* FINALIZAR PEDIDO */
-
-    await carregarComponente(
-        "sections/finalizar-pedido.html",
-        "checkout-container"
-    );
-
-    /* REVISAR PEDIDO */
-
-    await carregarComponente(
-        "sections/revisar-pedido.html",
-        "review-container"
-    );
-
-
-    /* =====================================================
-       AVISA O APP QUE O HTML ESTÁ PRONTO
-    ===================================================== */
-
-    document.dispatchEvent(
-        new Event(
-            "componentsLoaded"
-        )
-    );
-
-
-    /* =====================================================
-       MODAL DO PRODUTO
-    ===================================================== */
-
-    await carregarScript(
-        "js/modal-produto.js"
-    );
-
-
-    /* =====================================================
-       CARRINHO
-    ===================================================== */
-
-    await carregarScript(
-        "js/carrinho.js"
-    );
-
-
-    /* =====================================================
-       TAXAS DE ENTREGA
-
-       IMPORTANTE:
-       Precisa carregar ANTES de finalizar-pedido.js
-    ===================================================== */
-
-    await carregarScript(
-        "js/taxas-entrega.js"
-    );
-
-
-    /* =====================================================
-       FINALIZAR PEDIDO
-    ===================================================== */
-
-    await carregarScript(
-        "js/finalizar-pedido.js"
-    );
-
-    /* =====================================================
-       REVISAR PEDIDO
-    ===================================================== */
-
-    await carregarScript(
-        "js/revisar-pedido.js"
-    );
-
+    /* Configuradores separados: modal-produto usa as funções destes arquivos. */
+    await carregarScript("js/modal-bolo.js");
+    await carregarScript("js/modal-doces.js");
+    await carregarScript("js/modal-salgados.js");
+    await carregarScript("js/modal-kits.js");
+    await carregarScript("js/modal-produto.js");
+    await carregarScript("js/carrinho.js");
+    await carregarScript("js/taxas-entrega.js");
+    await carregarScript("js/finalizar-pedido.js");
+    await carregarScript("js/revisar-pedido.js");
 }
-
-
-/* =========================================================
-   INICIAR
-========================================================= */
 
 iniciarComponentes();

@@ -1,0 +1,11 @@
+/* =========================================================
+   BOLOS - SANTO BRIGADEIRO
+   Estilos específicos das opções de bolo.
+========================================================= */
+
+/* A estrutura visual base continua em modal-produto.css.
+   Este arquivo fica reservado para alterações exclusivas dos bolos. */
+
+.option-section .filling-info strong {
+    color: #63aecd;
+}

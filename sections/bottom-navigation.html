@@ -1,55 +1,22 @@
 <!-- =========================
      NAVEGAÇÃO INFERIOR
 ========================== -->
-
-<nav class="bottom-navigation">
-
-    <button
-        class="nav-item active"
-        type="button"
-    >
+<nav class="bottom-navigation" aria-label="Navegação principal">
+    <button class="nav-item active" id="navHome" type="button" aria-label="Ir para o início">
         <span>⌂</span>
         <small>Início</small>
     </button>
 
-
-    <button
-        class="nav-item"
-        type="button"
-    >
-        <span>▦</span>
-        <small>Cardápio</small>
-    </button>
-
-
-    <button
-        class="nav-item cart-nav"
-        id="openCart"
-        type="button"
-    >
+    <button class="nav-item cart-nav" id="openCart" type="button" aria-label="Abrir carrinho">
         <div class="nav-icon">
-
             🛒
-
-            <span
-                class="cart-count"
-                id="cartCount"
-            >
-                0
-            </span>
-
+            <span class="cart-count" id="cartCount">0</span>
         </div>
-
         <small>Carrinho</small>
     </button>
 
-
-    <button
-        class="nav-item"
-        type="button"
-    >
-        <span>♡</span>
-        <small>Pedidos</small>
+    <button class="nav-item" id="navWhatsapp" type="button" aria-label="Falar com a Santo Brigadeiro no WhatsApp">
+        <span>💬</span>
+        <small>WhatsApp</small>
     </button>
-
 </nav>

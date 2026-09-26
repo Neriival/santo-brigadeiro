@@ -209,6 +209,36 @@ function renderizarCarrinho() {
         }
 
 
+        /* DOCINHOS */
+
+        const detalhesDoces =
+            item.categoria === "doces"
+                ? `
+                    <span>🍬 Quantidade: <strong>${item.quantidadeDoces} doces</strong></span>
+                    <span>Linha: <strong>${item.linhaDoces}</strong></span>
+                    <span>Sabores: <strong>${(item.saboresDoces || []).join(", ")}</strong></span>
+                `
+                : "";
+
+        const detalhesSalgados =
+            item.categoria === "salgados"
+                ? `
+                    <span>🥟 Quantidade: <strong>${item.quantidadeSalgados} salgados</strong></span>
+                    <span>Linha: <strong>${item.linhaSalgados}</strong></span>
+                    <span>Preparo: <strong>${item.preparoSalgados}</strong></span>
+                    <span>Sabores: <strong>${(item.saboresSalgados || []).join(", ")}</strong></span>
+                ` : "";
+
+        const detalhesKit =
+            item.tipoConfiguracao === "kit-festa"
+                ? `
+                    <span>🎉 <strong>${item.kitNome}</strong> - serve ${item.kitServe} pessoas</span>
+                    <span>🎂 Bolo: <strong>${String(item.kitBoloKg).replace(".", ",")}kg</strong></span>
+                    <span>🍬 Doces: <strong>${item.kitDoces}</strong> - ${(item.saboresDocesKit || []).join(", ")}</span>
+                    <span>🥟 Salgados fritos: <strong>${item.kitSalgados}</strong> - ${(item.saboresSalgadosKit || []).join(", ")}</span>
+                ` : "";
+
+
         /* OBSERVAÇÃO */
 
         const observacao =
@@ -259,6 +289,12 @@ function renderizarCarrinho() {
 
                 ${recheios}
 
+                ${detalhesDoces}
+
+                ${detalhesSalgados}
+
+                ${detalhesKit}
+
             </div>
 
 
@@ -297,7 +333,7 @@ function renderizarCarrinho() {
                 <small>
                     ${formatarPrecoCarrinho(
                         item.precoUnitario
-                    )} cada
+                    )} ${(["doces", "salgados"].includes(item.categoria) || item.tipoConfiguracao === "kit-festa") ? "por lote" : "cada"}
                 </small>
 
                 <strong>

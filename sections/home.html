@@ -1,159 +1,98 @@
 <!-- =========================
      CONTEÚDO PRINCIPAL
 ========================== -->
-
 <section class="home">
-
-    <!-- SAUDAÇÃO -->
-    <div class="home-welcome">
-
+    <div class="home-welcome" id="homeTop">
         <span>Olá! 👋</span>
-
-        <h1>
-            O que vamos adoçar hoje?
-        </h1>
-
-        <p>
-            Escolha seus doces favoritos e faça seu pedido.
-        </p>
-
+        <h1>O que vamos adoçar hoje?</h1>
+        <p>Escolha uma categoria e monte seu pedido do seu jeito.</p>
     </div>
 
-
-    <!-- BUSCA -->
     <div class="search-container">
-
         <span class="search-icon">⌕</span>
-
-        <input
-            type="search"
-            id="searchInput"
-            placeholder="Buscar no cardápio..."
-            autocomplete="off"
-        >
-
+        <input type="search" id="searchInput" placeholder="Buscar no cardápio..." autocomplete="off">
     </div>
 
-
-    <!-- CATEGORIAS -->
     <section class="home-section">
-
         <div class="section-title">
-
             <h2>Categorias</h2>
-
-            <button type="button">
-                Ver todas
-            </button>
-
         </div>
-
 
         <div class="categories">
-
-            <button
-                class="category-card active"
-                type="button"
-                data-category="todos"
-            >
-                <div class="category-icon">
-                    ✨
-                </div>
-
-                <span>Todos</span>
-            </button>
-
-
-            <button
-                class="category-card"
-                type="button"
-                data-category="bolos"
-            >
-                <div class="category-icon">
-                    🎂
-                </div>
-
+            <button class="category-card" type="button" data-category="bolos">
+                <div class="category-icon">🎂</div>
                 <span>Bolos</span>
             </button>
-
-
-            <button
-                class="category-card"
-                type="button"
-                data-category="doces"
-            >
-                <div class="category-icon">
-                    🍫
-                </div>
-
+            <button class="category-card" type="button" data-category="doces">
+                <div class="category-icon">🍬</div>
                 <span>Doces</span>
             </button>
-
-
-            <button
-                class="category-card"
-                type="button"
-                data-category="kits"
-            >
-                <div class="category-icon">
-                    🎁
-                </div>
-
+            <button class="category-card" type="button" data-category="kits">
+                <div class="category-icon">🎉</div>
                 <span>Kits</span>
             </button>
-
-
-            <button
-                class="category-card"
-                type="button"
-                data-category="salgados"
-            >
-                <div class="category-icon">
-                    🥟
-                </div>
-
+            <button class="category-card" type="button" data-category="salgados">
+                <div class="category-icon">🥟</div>
                 <span>Salgados</span>
             </button>
-
-
-            <button
-                class="category-card"
-                type="button"
-                data-category="topos"
-            >
-                <div class="category-icon">
-                    🎨
-                </div>
-
-                <span>Topos Personalizados</span>
+            <button class="category-card" type="button" data-category="topos">
+                <div class="category-icon">🎨</div>
+                <span>Topos</span>
             </button>
-
         </div>
-
     </section>
 
+    <!-- HOME: ATALHOS ÚTEIS -->
+    <section class="order-start" id="orderStart">
+        <div class="order-start-banner">
+            <span class="order-start-badge">Santo Brigadeiro</span>
+            <h2>Feito com carinho para seus momentos especiais 💙</h2>
+            <p>Bolos, doces, salgados e kits para deixar sua comemoração completa.</p>
+        </div>
 
-    <!-- DESTAQUES -->
-    <section class="home-section">
+        <div class="section-title order-start-title">
+            <div>
+                <span class="section-kicker">Escolha por onde começar</span>
+                <h2>Monte seu pedido</h2>
+            </div>
+        </div>
 
-        <div class="section-title">
-
-            <h2>Destaques</h2>
-
-            <button type="button">
-                Ver todos
+        <div class="order-shortcuts">
+            <button class="order-shortcut" type="button" data-home-category="bolos">
+                <span class="order-shortcut-icon">🎂</span>
+                <span class="order-shortcut-text"><strong>Bolos</strong><small>Escolher tamanho e recheios</small></span>
+                <span class="order-shortcut-arrow">›</span>
             </button>
 
+            <button class="order-shortcut" type="button" data-home-category="kits">
+                <span class="order-shortcut-icon">🎉</span>
+                <span class="order-shortcut-text"><strong>Kits Festa</strong><small>Veja os kits completos</small></span>
+                <span class="order-shortcut-arrow">›</span>
+            </button>
+
+            <button class="order-shortcut" type="button" data-home-category="doces">
+                <span class="order-shortcut-icon">🍬</span>
+                <span class="order-shortcut-text"><strong>Docinhos</strong><small>Escolher quantidade e sabores</small></span>
+                <span class="order-shortcut-arrow">›</span>
+            </button>
+
+            <button class="order-shortcut" type="button" data-home-category="salgados">
+                <span class="order-shortcut-icon">🥟</span>
+                <span class="order-shortcut-text"><strong>Salgados</strong><small>Escolher tipo e sabores</small></span>
+                <span class="order-shortcut-arrow">›</span>
+            </button>
         </div>
-
-
-        <div
-            class="products-grid"
-            id="featuredProducts"
-        >
-            <!-- Produtos inseridos pelo JavaScript -->
-        </div>
-
     </section>
 
+    <!-- PRODUTOS: SÓ APARECE AO ESCOLHER CATEGORIA OU BUSCAR -->
+    <section class="home-section products-section" id="productsSection" hidden>
+        <div class="section-title products-section-title">
+            <div>
+                <span class="section-kicker" id="productsSectionKicker">Cardápio</span>
+                <h2 id="productsSectionTitle">Produtos</h2>
+            </div>
+        </div>
+
+        <div class="products-grid" id="featuredProducts"></div>
+    </section>
 </section>

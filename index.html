@@ -21,10 +21,14 @@
     <link rel="stylesheet" href="css/splash.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/modal-produto.css">
+    <link rel="stylesheet" href="css/modal-bolo.css">
     <link rel="stylesheet" href="css/carrinho.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/finalizar-pedido.css">
     <link rel="stylesheet" href="css/revisar-pedido.css">
+    <link rel="stylesheet" href="css/modal-doces.css">
+    <link rel="stylesheet" href="css/modal-salgados.css">
+    <link rel="stylesheet" href="css/modal-kits.css">
     
 </head>
 
@@ -36,20 +40,23 @@
 
     <div class="splash-screen" id="splashScreen">
 
-        <div class="splash-content">
+        <div class="splash-orbit orbit-one" aria-hidden="true"></div>
+        <div class="splash-orbit orbit-two" aria-hidden="true"></div>
+        <span class="splash-spark spark-1" aria-hidden="true">✦</span>
+        <span class="splash-spark spark-2" aria-hidden="true">✧</span>
+        <span class="splash-spark spark-3" aria-hidden="true">✦</span>
+        <span class="splash-spark spark-4" aria-hidden="true">✧</span>
 
+        <div class="splash-content">
             <img
                 src="assets/logo/logo.png"
                 alt="Santo Brigadeiro"
                 class="splash-logo"
             >
-
-            <div class="loading">
-                <span></span>
-                <span></span>
+            <p class="splash-title">Preparando delícias...</p>
+            <div class="loading-bar" aria-hidden="true">
                 <span></span>
             </div>
-
         </div>
 
     </div>
@@ -86,6 +93,7 @@
 <!-- REVISAR PEDIDO -->
 <div id="review-container"></div>
 
+</main>
 
     <!-- JAVASCRIPT -->
 

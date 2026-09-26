@@ -198,6 +198,38 @@ function criarDetalhesProdutoReview(item) {
     }
 
 
+    /* DOCINHOS */
+
+    if (item.categoria === "doces") {
+
+        detalhes.push(`
+            <p><strong>Quantidade:</strong> ${item.quantidadeDoces} doces</p>
+            <p><strong>Linha:</strong> ${item.linhaDoces}</p>
+            <p><strong>Sabores:</strong> ${(item.saboresDoces || []).join(", ")}</p>
+        `);
+
+    }
+
+    if (item.categoria === "salgados") {
+        detalhes.push(`
+            <p><strong>Quantidade:</strong> ${item.quantidadeSalgados} salgados</p>
+            <p><strong>Linha:</strong> ${item.linhaSalgados}</p>
+            <p><strong>Preparo:</strong> ${item.preparoSalgados}</p>
+            <p><strong>Sabores:</strong> ${(item.saboresSalgados || []).join(", ")}</p>
+        `);
+    }
+
+
+    if (item.tipoConfiguracao === "kit-festa") {
+        detalhes.push(`
+            <p><strong>Kit:</strong> ${item.kitNome} - serve ${item.kitServe} pessoas</p>
+            <p><strong>Bolo:</strong> ${String(item.kitBoloKg).replace(".", ",")}kg</p>
+            <p><strong>Doces comuns:</strong> ${item.kitDoces} - ${(item.saboresDocesKit || []).join(", ")}</p>
+            <p><strong>Salgados fritos:</strong> ${item.kitSalgados} - ${(item.saboresSalgadosKit || []).join(", ")}</p>
+        `);
+    }
+
+
     /* OBSERVAÇÃO DO PRODUTO */
 
     if (item.observacao) {
@@ -820,6 +852,33 @@ function montarProdutosWhatsapp(produtos) {
                 texto +=
                     `Recheios: ${recheios}\n`;
 
+            }
+
+
+            /* DOCINHOS */
+
+            if (item.categoria === "doces") {
+
+                texto += `Quantidade: ${item.quantidadeDoces} doces\n`;
+                texto += `Linha: ${item.linhaDoces}\n`;
+                texto += `Sabores: ${(item.saboresDoces || []).join(", ")}\n`;
+
+            }
+
+            if (item.categoria === "salgados") {
+                texto += `Quantidade: ${item.quantidadeSalgados} salgados\n`;
+                texto += `Linha: ${item.linhaSalgados}\n`;
+                texto += `Preparo: ${item.preparoSalgados}\n`;
+                texto += `Sabores: ${(item.saboresSalgados || []).join(", ")}\n`;
+            }
+
+
+            if (item.tipoConfiguracao === "kit-festa") {
+                texto += `Kit: ${item.kitNome} - serve ${item.kitServe} pessoas\n`;
+                texto += `Bolo: ${String(item.kitBoloKg).replace(".", ",")}kg\n`;
+                texto += `Doces comuns: ${item.kitDoces} - ${(item.saboresDocesKit || []).join(", ")}\n`;
+                texto += `Salgados fritos: ${item.kitSalgados} - ${(item.saboresSalgadosKit || []).join(", ")}\n`;
+                texto += `Topo: cobrado à parte\n`;
             }
 
 

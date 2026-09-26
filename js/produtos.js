@@ -103,23 +103,155 @@ const produtos = [
     },
 
     {
-        id: 3,
-        nome: "Brigadeiro Tradicional",
-        categoria: "doces",
-        preco: 3.00,
+        id: 9,
+        nome: "Kit Festa",
+        categoria: "kits",
+        tipoConfiguracao: "kit-festa",
+        preco: 252.00,
         imagem: "",
-        descricao: "Brigadeiro tradicional feito com chocolate.",
-        destaque: true
+        descricao: "Kit Festa com bolo, doces comuns e salgados fritos. Topo de bolo cobrado à parte.",
+        destaque: true,
+
+        kitsFesta: [
+            { id: "kit1", nome: "Kit 1", preco: 252, serve: 10, boloKg: 1, doces: 50, salgados: 100 },
+            { id: "kit2", nome: "Kit 2", preco: 347, serve: 15, boloKg: 1.5, doces: 50, salgados: 150 },
+            { id: "kit3", nome: "Kit 3", preco: 500, serve: 20, boloKg: 2, doces: 100, salgados: 200 },
+            { id: "kit4", nome: "Kit 4", preco: 732, serve: 30, boloKg: 3, doces: 150, salgados: 300 },
+            { id: "kit5", nome: "Kit 5", preco: 975, serve: 40, boloKg: 4, doces: 200, salgados: 400 },
+            { id: "kit6", nome: "Kit 6", preco: 1227, serve: 50, boloKg: 5, doces: 250, salgados: 500 }
+        ],
+
+        massas: ["Branca", "Chocolate"],
+
+        recheiosBolo: [
+            "4 Leites", "Bicho de pé", "Creme Ninho", "Doce de leite", "Brigadeiro",
+            "Prestígio", "Sonho de Oreo", "Dois amores", "Olho de sogra"
+        ],
+
+        saboresDoces: ["Brigadeiro", "Beijinho", "Moranguinho", "Cajuzinho", "Olho de Sogra"],
+
+        saboresSalgados: ["Coxinha", "Bolinho de Queijo", "Maravilha", "Croquete de Carne"]
+    },
+
+    {
+        id: 3,
+        nome: "Docinhos",
+        categoria: "doces",
+
+        preco: 30.00,
+
+        imagem: "",
+
+        descricao:
+            "Docinhos artesanais em forminha de papel. Aproximadamente 18g cada doce.",
+
+        destaque: true,
+
+        quantidadeMinima: 25,
+        intervaloQuantidade: 25,
+
+        regrasSabores: [
+            {
+                quantidadeMinima: 25,
+                quantidadeMaxima: 25,
+                maxSabores: 1
+            },
+            {
+                quantidadeMinima: 50,
+                quantidadeMaxima: 75,
+                maxSabores: 2
+            },
+            {
+                quantidadeMinima: 100,
+                quantidadeMaxima: 175,
+                maxSabores: 4
+            },
+            {
+                quantidadeMinima: 200,
+                quantidadeMaxima: null,
+                maxSabores: 6
+            }
+        ],
+
+        linhasDoces: {
+
+            comum: {
+                nome: "Linha Comum",
+                precoCento: 120,
+
+                sabores: [
+                    "Brigadeiro",
+                    "Beijinho",
+                    "Moranguinho",
+                    "Cajuzinho",
+                    "Olho de Sogra"
+                ]
+            },
+
+            gourmet: {
+                nome: "Linha Gourmet",
+                precoCento: 230,
+
+                sabores: [
+                    "Ao Leite",
+                    "Bicho de Pé",
+                    "Churros",
+                    "Branco",
+                    "Doce de Leite com Coco",
+                    "Paçoca",
+                    "Stikadinho"
+                ]
+            },
+
+            premium: {
+                nome: "Linha Premium",
+                precoCento: 280,
+
+                sabores: [
+                    "Ferrero",
+                    "Surpresa de Uva",
+                    "Ao Leite com Nutella",
+                    "Ninho com Nutella",
+                    "Oreo + Bolachinha"
+                ]
+            }
+
+        }
     },
 
     {
         id: 4,
-        nome: "Cento de Salgados",
+        nome: "Salgados",
         categoria: "salgados",
-        preco: 80.00,
+        preco: 15.00,
         imagem: "",
-        descricao: "Salgados variados para sua festa.",
-        destaque: false
+        descricao: "Salgados fritos ou congelados pelo mesmo valor. Escolha a linha, a quantidade e os sabores.",
+        destaque: false,
+        quantidadeMinima: 25,
+        intervaloQuantidade: 25,
+        regrasSabores: [
+            { quantidadeMinima: 25, quantidadeMaxima: 25, maxSabores: 1 },
+            { quantidadeMinima: 50, quantidadeMaxima: 75, maxSabores: 2 },
+            { quantidadeMinima: 100, quantidadeMaxima: 175, maxSabores: 4 },
+            { quantidadeMinima: 200, quantidadeMaxima: null, maxSabores: 6 }
+        ],
+        linhasSalgados: {
+            mini: {
+                nome: "Mini Salgados",
+                precoCento: 60,
+                sabores: ["Coxinha", "Bolinho de Queijo", "Croquete de Carne", "Maravilha"]
+            },
+            festa: {
+                nome: "Salgados de Festa",
+                precoCento: 110,
+                sabores: ["Coxinha", "Bolinho de Queijo", "Croquete de Carne", "Maravilha", "Risoles de Carne", "Risoles de Calabresa", "Kibe", "Brócolis com Queijo"]
+            },
+            assados: {
+                nome: "Salgados Assados",
+                precoCento: 130,
+                sabores: ["Esfirra de Carne", "Esfirra de Frango", "Esfirra de Calabresa", "Empada de Frango", "Empada de Palmito", "Mistinho de Presunto e Queijo", "Enroladinho de Salsicha"]
+            }
+        }
     },
 
         {

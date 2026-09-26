@@ -25,7 +25,7 @@
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 
     padding: 15px 20px;
 
@@ -42,30 +42,17 @@
 
 /* LOGO */
 
-.header-logo img {
-    width: 105px;
-    height: 55px;
-
-    object-fit: contain;
-}
-
-
-/* PERFIL */
-
-.profile-button {
-    width: 43px;
-    height: 43px;
-
+.header-logo {
     display: flex;
     align-items: center;
     justify-content: center;
+}
 
-    border: none;
-    border-radius: 50%;
-
-    background: #d9f1fc;
-
-    font-size: 19px;
+.header-logo img {
+    width: 155px;
+    height: 76px;
+    object-fit: contain;
+    display: block;
 }
 
 
@@ -619,4 +606,154 @@
     font-size: 12px;
 
     line-height: 1.5;
+}
+/* ================================
+   V5 - CARDÁPIO MAIS LIMPO
+================================ */
+.products-section-title {
+    justify-content: flex-start;
+}
+
+#productsSection {
+    scroll-margin-top: 95px;
+}
+
+.category-card span {
+    max-width: 78px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* ================================
+   V6 - HOME / MONTE SEU PEDIDO
+================================ */
+
+.order-start {
+    margin-bottom: 35px;
+}
+
+.order-start-banner {
+    margin-bottom: 28px;
+    padding: 24px 22px;
+    border: 1px solid #d9edf6;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #eaf8ff 0%, #ffffff 72%);
+    box-shadow: 0 8px 25px rgba(54, 91, 108, 0.07);
+}
+
+.order-start-badge,
+.section-kicker {
+    display: block;
+    margin-bottom: 7px;
+    color: #63aecd;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.order-start-banner h2 {
+    max-width: 520px;
+    margin-bottom: 8px;
+    color: #263b45;
+    font-size: 21px;
+    line-height: 1.25;
+}
+
+.order-start-banner p {
+    max-width: 600px;
+    color: #71848d;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.order-start-title {
+    margin-bottom: 14px;
+}
+
+.order-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.order-shortcut {
+    min-height: 112px;
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #e1edf2;
+    border-radius: 20px;
+    background: #ffffff;
+    text-align: left;
+    box-shadow: 0 5px 20px rgba(54, 91, 108, 0.07);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.order-shortcut:hover {
+    transform: translateY(-2px);
+    border-color: #c7e5f2;
+    box-shadow: 0 9px 24px rgba(54, 91, 108, 0.11);
+}
+
+.order-shortcut-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: #eef8fc;
+    font-size: 26px;
+}
+
+.order-shortcut-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.order-shortcut-text strong {
+    color: #2d4651;
+    font-size: 14px;
+}
+
+.order-shortcut-text small {
+    color: #819097;
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+.order-shortcut-arrow {
+    color: #74b9d8;
+    font-size: 26px;
+    line-height: 1;
+}
+
+.products-section[hidden],
+.order-start[hidden] {
+    display: none !important;
+}
+
+/* Rodapé V6: somente ações que funcionam */
+.bottom-navigation {
+    justify-content: space-evenly;
+}
+
+.bottom-navigation .nav-item {
+    flex: 1;
+    max-width: 130px;
+}
+
+@media (max-width: 520px) {
+    .order-shortcuts {
+        grid-template-columns: 1fr;
+    }
+
+    .order-shortcut {
+        min-height: 88px;
+    }
 }
