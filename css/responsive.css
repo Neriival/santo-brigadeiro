@@ -215,3 +215,32 @@ button {
         border-radius: 22px;
     }
 }
+
+/* ================================
+   V10 - HEADER RESPONSIVO
+================================ */
+@media (max-width: 767px) {
+    .header-brand {
+        gap: 10px;
+    }
+
+    .header-logo img {
+        width: clamp(88px, 27vw, 112px);
+        max-height: 58px;
+    }
+
+    .header-brand-text strong {
+        font-size: clamp(16px, 5vw, 20px);
+    }
+
+    .header-brand-text span {
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .header-logo img {
+        width: 138px;
+        max-height: 72px;
+    }
+}

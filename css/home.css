@@ -757,3 +757,47 @@
         min-height: 88px;
     }
 }
+
+/* ================================
+   V10 - IDENTIDADE DO CABEÇALHO
+================================ */
+
+.app-header {
+    justify-content: flex-start;
+}
+
+.header-brand {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-logo {
+    flex-shrink: 0;
+}
+
+.header-logo img {
+    width: 125px;
+    height: 66px;
+}
+
+.header-brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.header-brand-text strong {
+    color: #263b45;
+    font-size: 21px;
+    line-height: 1.1;
+}
+
+.header-brand-text span {
+    color: #6aaecb;
+    font-size: 12px;
+    font-weight: 600;
+}

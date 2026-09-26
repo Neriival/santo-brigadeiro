@@ -8,11 +8,6 @@
         <p>Escolha uma categoria e monte seu pedido do seu jeito.</p>
     </div>
 
-    <div class="search-container">
-        <span class="search-icon">⌕</span>
-        <input type="search" id="searchInput" placeholder="Buscar no cardápio..." autocomplete="off">
-    </div>
-
     <section class="home-section">
         <div class="section-title">
             <h2>Categorias</h2>
@@ -42,49 +37,33 @@
         </div>
     </section>
 
-    <!-- HOME: ATALHOS ÚTEIS -->
-    <section class="order-start" id="orderStart">
-        <div class="order-start-banner">
-            <span class="order-start-badge">Santo Brigadeiro</span>
-            <h2>Feito com carinho para seus momentos especiais 💙</h2>
-            <p>Bolos, doces, salgados e kits para deixar sua comemoração completa.</p>
+    <!-- APRESENTAÇÃO SANTO BRIGADEIRO -->
+    <section class="about-karina" id="aboutKarina">
+        <div class="about-karina-content">
+            <span class="about-karina-kicker">Santo Brigadeiro</span>
+            <h2>Do nosso carinho para a sua comemoração 💙</h2>
+            <p>
+                A Santo Brigadeiro nasceu do amor da Karina pela confeitaria e do desejo
+                de transformar momentos especiais em lembranças ainda mais doces.
+            </p>
+            <p>
+                Cada pedido é preparado com carinho e atenção aos detalhes para fazer
+                parte das comemorações que merecem ser lembradas.
+            </p>
         </div>
 
-        <div class="section-title order-start-title">
-            <div>
-                <span class="section-kicker">Escolha por onde começar</span>
-                <h2>Monte seu pedido</h2>
+        <div class="about-karina-photo-wrap">
+            <span class="about-decoration about-decoration-one" aria-hidden="true"></span>
+            <span class="about-decoration about-decoration-two" aria-hidden="true"></span>
+            <div class="about-karina-photo">
+                <img src="assets/karina/karina.jpg" alt="Karina, da Santo Brigadeiro">
             </div>
-        </div>
-
-        <div class="order-shortcuts">
-            <button class="order-shortcut" type="button" data-home-category="bolos">
-                <span class="order-shortcut-icon">🎂</span>
-                <span class="order-shortcut-text"><strong>Bolos</strong><small>Escolher tamanho e recheios</small></span>
-                <span class="order-shortcut-arrow">›</span>
-            </button>
-
-            <button class="order-shortcut" type="button" data-home-category="kits">
-                <span class="order-shortcut-icon">🎉</span>
-                <span class="order-shortcut-text"><strong>Kits Festa</strong><small>Veja os kits completos</small></span>
-                <span class="order-shortcut-arrow">›</span>
-            </button>
-
-            <button class="order-shortcut" type="button" data-home-category="doces">
-                <span class="order-shortcut-icon">🍬</span>
-                <span class="order-shortcut-text"><strong>Docinhos</strong><small>Escolher quantidade e sabores</small></span>
-                <span class="order-shortcut-arrow">›</span>
-            </button>
-
-            <button class="order-shortcut" type="button" data-home-category="salgados">
-                <span class="order-shortcut-icon">🥟</span>
-                <span class="order-shortcut-text"><strong>Salgados</strong><small>Escolher tipo e sabores</small></span>
-                <span class="order-shortcut-arrow">›</span>
-            </button>
+            <span class="about-spark about-spark-one" aria-hidden="true">✦</span>
+            <span class="about-spark about-spark-two" aria-hidden="true">✧</span>
         </div>
     </section>
 
-    <!-- PRODUTOS: SÓ APARECE AO ESCOLHER CATEGORIA OU BUSCAR -->
+    <!-- PRODUTOS: APARECEM AO ESCOLHER UMA CATEGORIA -->
     <section class="home-section products-section" id="productsSection" hidden>
         <div class="section-title products-section-title">
             <div>
