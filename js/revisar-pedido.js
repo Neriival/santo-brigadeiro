@@ -81,6 +81,10 @@ const reviewDeliveryFee =
 const reviewTotal =
     document.getElementById("reviewTotal");
 
+const reviewPaymentMethod = document.getElementById("reviewPaymentMethod");
+const reviewChangeRow = document.getElementById("reviewChangeRow");
+const reviewChangeFor = document.getElementById("reviewChangeFor");
+
 
 /* =========================================================
    FORMATAR DINHEIRO
@@ -229,6 +233,11 @@ function criarDetalhesProdutoReview(item) {
         `);
     }
 
+
+    /* FOTO DE INSPIRAÇÃO */
+    if (item.temInspiracao) {
+        detalhes.push(`<p><strong>Foto de inspiração:</strong> selecionada — enviar no WhatsApp</p>`);
+    }
 
     /* OBSERVAÇÃO DO PRODUTO */
 
@@ -474,6 +483,13 @@ function preencherRevisaoPedido() {
 
     }
 
+
+    /* =====================================================
+       PAGAMENTO
+    ===================================================== */
+    if (reviewPaymentMethod) reviewPaymentMethod.textContent = pedido.pagamento?.nome || "-";
+    if (reviewChangeRow) reviewChangeRow.hidden = !pedido.pagamento?.precisaTroco;
+    if (reviewChangeFor && pedido.pagamento?.precisaTroco) reviewChangeFor.textContent = formatarDinheiroReview(pedido.pagamento.trocoPara);
 
     /* =====================================================
        PRODUTOS
@@ -882,6 +898,11 @@ function montarProdutosWhatsapp(produtos) {
             }
 
 
+            /* FOTO DE INSPIRAÇÃO */
+            if (item.temInspiracao) {
+                texto += `Foto de inspiração: cliente possui referência (enviar nesta conversa)\n`;
+            }
+
             /* OBSERVAÇÃO DO PRODUTO */
 
             if (item.observacao) {
@@ -1002,6 +1023,12 @@ function montarMensagemWhatsapp() {
     mensagem +=
         `Horário: ${pedido.horario}\n`;
 
+
+    /* PAGAMENTO */
+    mensagem += `\n💳 *PAGAMENTO*\n`;
+    mensagem += `Forma: ${pedido.pagamento?.nome || "Não informada"}\n`;
+    if (pedido.pagamento?.precisaTroco) mensagem += `Troco para: ${formatarDinheiroReview(pedido.pagamento.trocoPara)}\n`;
+    if (pedido.pagamento?.tipo === "credito") mensagem += `Link de crédito: enviar ao cliente após confirmar o pedido\n`;
 
     /* PRODUTOS */
 

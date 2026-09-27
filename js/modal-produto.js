@@ -15,6 +15,11 @@ const productQuantity = document.getElementById("productQuantity");
 const increaseQuantity = document.getElementById("increaseQuantity");
 const productObservation = document.getElementById("productObservation");
 const productObservationLabel = document.getElementById("productObservationLabel");
+const inspirationOption = document.getElementById("inspirationOption");
+const inspirationImage = document.getElementById("inspirationImage");
+const inspirationPreview = document.getElementById("inspirationPreview");
+const inspirationPreviewImage = document.getElementById("inspirationPreviewImage");
+const removeInspiration = document.getElementById("removeInspiration");
 const modalTotal = document.getElementById("modalTotal");
 const modalAddCart = document.getElementById("modalAddCart");
 const quantidadeProdutoContainer = decreaseQuantity?.closest(".modal-option");
@@ -22,6 +27,8 @@ const quantidadeProdutoContainer = decreaseQuantity?.closest(".modal-option");
 let produtoAtual = null;
 let quantidadeAtual = 1;
 let carrinho = [];
+let inspirationFileName = "";
+let inspirationObjectUrl = "";
 
 function formatarPreco(valor) {
     return Number(valor || 0).toLocaleString("pt-BR", {
@@ -47,6 +54,12 @@ function abrirProduto(id) {
 
     produtoAtual = produto;
     quantidadeAtual = 1;
+    inspirationFileName = "";
+    if (inspirationObjectUrl) URL.revokeObjectURL(inspirationObjectUrl);
+    inspirationObjectUrl = "";
+    if (inspirationImage) inspirationImage.value = "";
+    if (inspirationPreview) inspirationPreview.hidden = true;
+    if (inspirationOption) inspirationOption.hidden = produto.categoria !== "bolos";
 
     modalCategory.textContent = nomeCategoria(produto.categoria);
     modalProductName.textContent = produto.nome;
@@ -304,7 +317,10 @@ modalAddCart?.addEventListener("click", () => {
         tamanho: dadosBolo?.tamanho || null,
         massa: dadosBolo?.massa || null,
         recheios: dadosBolo?.recheios || [],
-        observacao
+        planoRecheio: dadosBolo?.planoRecheio || null,
+        observacao,
+        temInspiracao: Boolean(inspirationFileName),
+        nomeArquivoInspiracao: inspirationFileName || null
     });
 
     atualizarContadorCarrinho();
@@ -325,4 +341,39 @@ productModalOverlay?.addEventListener("click", event => {
 
 document.addEventListener("keydown", event => {
     if (event.key === "Escape" && productModalOverlay?.classList.contains("active")) fecharProduto();
+});
+
+
+/* V11 - FOTO DE INSPIRAÇÃO E FLUXO GUIADO */
+inspirationImage?.addEventListener("change", () => {
+    const arquivo = inspirationImage.files?.[0];
+    if (!arquivo) return;
+    inspirationFileName = arquivo.name;
+    if (inspirationObjectUrl) URL.revokeObjectURL(inspirationObjectUrl);
+    inspirationObjectUrl = URL.createObjectURL(arquivo);
+    if (inspirationPreviewImage) inspirationPreviewImage.src = inspirationObjectUrl;
+    if (inspirationPreview) inspirationPreview.hidden = false;
+    setTimeout(() => productObservation?.scrollIntoView({behavior:"smooth", block:"center"}), 250);
+});
+removeInspiration?.addEventListener("click", () => {
+    inspirationFileName = "";
+    if (inspirationObjectUrl) URL.revokeObjectURL(inspirationObjectUrl);
+    inspirationObjectUrl = "";
+    if (inspirationImage) inspirationImage.value = "";
+    if (inspirationPreview) inspirationPreview.hidden = true;
+});
+
+// Nas opções que recriam o conteúdo (doces, salgados e kits), avança suavemente
+// para a próxima etapa sem impedir que o cliente volte e altere escolhas anteriores.
+productOptions?.addEventListener("click", event => {
+    const alvo = event.target.closest("button");
+    if (!alvo || alvo.matches("[id$='Decrease'], [id$='Increase']")) return;
+    const secao = alvo.closest(".doces-section, .salgados-section, .kit-section");
+    if (!secao) return;
+    const indice = [...secao.parentElement.children].indexOf(secao);
+    setTimeout(() => {
+        const secoes = productOptions.querySelectorAll(".doces-section, .salgados-section, .kit-section");
+        const proxima = secoes[indice + 1];
+        proxima?.scrollIntoView({behavior:"smooth", block:"center"});
+    }, 220);
 });

@@ -573,3 +573,23 @@
     font-size: 10px;
     font-weight: 700;
 }
+/* V11 - progresso, recheios, inspiração e total fixo */
+.cake-progress { position:sticky; top:62px; z-index:5; margin:0 -4px 10px; padding:12px 4px; background:rgba(255,255,255,.96); backdrop-filter:blur(8px); }
+.cake-progress-head { display:flex; justify-content:space-between; gap:12px; color:#344d58; font-weight:700; font-size:13px; }
+.cake-progress-head small { color:#6aaecb; }
+.cake-progress-track { height:6px; margin-top:8px; overflow:hidden; border-radius:999px; background:#eaf2f6; }
+.cake-progress-fill { display:block; width:0; height:100%; border-radius:inherit; background:#74b9d8; transition:width .3s ease; }
+.filling-plan-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+.filling-plan-option { padding:12px; border:1px solid #dfe9ed; border-radius:12px; background:#fff; color:#627780; font-size:12px; font-weight:700; }
+.filling-plan-option.selected { border-color:#74b9d8; background:#74b9d8; color:#fff; }
+.cake-flavor-group + .cake-flavor-group { margin-top:18px; }
+.cake-flavor-empty { color:#8b9ba3; font-size:13px; }
+.inspiration-option { padding-top:20px; border-top:1px solid #edf1f3; }
+.inspiration-help { margin:-3px 0 12px; color:#7c8d95; font-size:12px; line-height:1.5; }
+#inspirationImage { width:100%; padding:11px; border:1px dashed #9bcfec; border-radius:12px; background:#f5fbfe; }
+.inspiration-preview { margin-top:12px; overflow:hidden; border:1px solid #dce9ef; border-radius:14px; background:#fff; }
+.inspiration-preview img { width:100%; max-height:220px; display:block; object-fit:cover; }
+.inspiration-preview div { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; font-size:12px; }
+.inspiration-preview button { border:0; background:transparent; color:#c65d5d; font-weight:700; }
+.modal-total { position:sticky; top:0; z-index:8; margin:8px -20px 0; padding:15px 20px; border-top:1px solid #dce9ef; background:rgba(255,255,255,.96); backdrop-filter:blur(10px); box-shadow:0 -8px 22px rgba(38,59,69,.07); }
+@media (max-width:520px){.filling-plan-options{grid-template-columns:1fr}}

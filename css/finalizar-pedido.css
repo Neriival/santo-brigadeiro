@@ -384,3 +384,15 @@
     }
 
 }
+/* V11 - pagamento */
+.payment-options { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+.payment-option { min-height:92px; padding:12px 8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; border:2px solid #eee; border-radius:14px; background:#fff; text-align:center; }
+.payment-option>span { font-size:22px; }
+.payment-option div { display:flex; flex-direction:column; gap:2px; }
+.payment-option strong { font-size:13px; }
+.payment-option small { color:#888; font-size:10px; }
+.payment-option.active { border-color:#9bcfec; background:#f2faff; }
+.payment-detail { margin-top:12px; padding:12px; border-radius:12px; background:#f7fbfd; color:#647983; font-size:12px; line-height:1.5; }
+.cash-change-label { display:flex; align-items:center; gap:8px; color:#344d58; font-weight:700; }
+#changeForField { margin:12px 0 0; }
+@media(max-width:420px){.payment-options{grid-template-columns:1fr}.payment-option{min-height:auto; flex-direction:row; justify-content:flex-start; text-align:left}}

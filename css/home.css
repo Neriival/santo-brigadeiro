@@ -801,3 +801,10 @@
     font-size: 12px;
     font-weight: 600;
 }
+
+/* V11 - cabeçalho mais organizado */
+.app-header { min-height: 88px; }
+.header-brand { gap: 12px; }
+.header-logo img { width: 108px; height: 60px; }
+.header-brand-text { padding-left: 14px; border-left: 1px solid #dcecf3; }
+.header-brand-text strong { font-size: 20px; letter-spacing: .01em; }

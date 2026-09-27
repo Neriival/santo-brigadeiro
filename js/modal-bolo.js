@@ -1,205 +1,22 @@
 /* =========================================================
-   BOLOS - SANTO BRIGADEIRO
-   Tamanho, massa e recheios ficam isolados neste arquivo.
+   BOLOS - SANTO BRIGADEIRO | V11
+   Fluxo guiado: tamanho > massa > tipo de recheio > sabores.
 ========================================================= */
+let boloProdutoAtual=null, boloContainer=null, boloTamanhoSelecionado=null, boloMassaSelecionada=null;
+let boloRecheiosSelecionados=[], boloPlanoRecheio=null, boloAoAlterar=null;
 
-let boloProdutoAtual = null;
-let boloContainer = null;
-let boloTamanhoSelecionado = null;
-let boloMassaSelecionada = null;
-let boloRecheiosSelecionados = [];
-let boloAoAlterar = null;
-
-function formatarPrecoBolo(valor) {
-    return Number(valor || 0).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-    });
-}
-
-function possuiRecheioPremiumBolo() {
-    return boloRecheiosSelecionados.some(recheio => recheio.tipo === "premium");
-}
-
-function obterPrecoBolo() {
-    if (!boloProdutoAtual) return 0;
-    if (!boloTamanhoSelecionado) return Number(boloProdutoAtual.preco || 0);
-
-    return Number(
-        possuiRecheioPremiumBolo()
-            ? boloTamanhoSelecionado.precoPremium
-            : boloTamanhoSelecionado.precoComum
-    );
-}
-
-function obterDadosBolo() {
-    return {
-        tamanho: boloTamanhoSelecionado?.nome || null,
-        massa: boloMassaSelecionada,
-        recheios: boloRecheiosSelecionados.map(recheio => ({ ...recheio })),
-        preco: obterPrecoBolo()
-    };
-}
-
-function validarBolo() {
-    if (!boloTamanhoSelecionado) {
-        alert("Escolha o tamanho do bolo.");
-        return false;
-    }
-    if (!boloMassaSelecionada) {
-        alert("Escolha a massa do bolo.");
-        return false;
-    }
-    if (boloRecheiosSelecionados.length === 0) {
-        alert("Escolha pelo menos 1 recheio.");
-        return false;
-    }
-    return true;
-}
-
-function notificarAlteracaoBolo() {
-    if (typeof boloAoAlterar === "function") boloAoAlterar(obterDadosBolo());
-}
-
-function criarTamanhosBolo() {
-    const section = document.createElement("div");
-    section.className = "option-section";
-    section.innerHTML = `
-        <div class="option-title"><h3>Escolha o tamanho</h3><span>Obrigatório</span></div>
-        <div class="size-options"></div>
-    `;
-    boloContainer.appendChild(section);
-
-    const container = section.querySelector(".size-options");
-
-    boloProdutoAtual.tamanhos.forEach((tamanho, index) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "option-card";
-        button.innerHTML = `
-            <div><strong>${tamanho.nome}</strong><small>${tamanho.serve}</small></div>
-            <span>${formatarPrecoBolo(tamanho.precoComum)}</span>
-        `;
-
-        button.addEventListener("click", () => {
-            boloTamanhoSelecionado = tamanho;
-            boloContainer.querySelectorAll(".option-card").forEach(item => item.classList.remove("selected"));
-            button.classList.add("selected");
-            notificarAlteracaoBolo();
-        });
-
-        container.appendChild(button);
-
-        if (index === 0) {
-            boloTamanhoSelecionado = tamanho;
-            button.classList.add("selected");
-        }
-    });
-}
-
-function criarMassasBolo() {
-    const section = document.createElement("div");
-    section.className = "option-section";
-    section.innerHTML = `
-        <div class="option-title"><h3>Escolha a massa</h3><span>Obrigatório</span></div>
-        <div class="simple-options"></div>
-    `;
-    boloContainer.appendChild(section);
-
-    const container = section.querySelector(".simple-options");
-
-    boloProdutoAtual.massas.forEach(massa => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "simple-option";
-        button.textContent = massa;
-
-        button.addEventListener("click", () => {
-            container.querySelectorAll(".simple-option").forEach(item => item.classList.remove("selected"));
-            button.classList.add("selected");
-            boloMassaSelecionada = massa;
-            notificarAlteracaoBolo();
-        });
-
-        container.appendChild(button);
-    });
-}
-
-function criarRecheiosBolo(titulo, recheios, premium = false) {
-    const section = document.createElement("div");
-    section.className = "option-section";
-    section.innerHTML = `
-        <div class="option-title">
-            <div><h3>${titulo}</h3><small>Escolha até 2 recheios</small></div>
-            ${premium ? "<span>Premium</span>" : ""}
-        </div>
-        <div class="filling-options"></div>
-    `;
-    boloContainer.appendChild(section);
-
-    const container = section.querySelector(".filling-options");
-
-    recheios.forEach(recheio => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "filling-option";
-        button.innerHTML = `
-            <div class="filling-info">
-                <span>${recheio.nome}</span>
-                ${recheio.tipo === "premium" ? "<strong>Valor premium</strong>" : ""}
-            </div>
-            <div class="check">✓</div>
-        `;
-
-        button.addEventListener("click", () => {
-            const indice = boloRecheiosSelecionados.findIndex(item => item.nome === recheio.nome);
-
-            if (indice >= 0) {
-                boloRecheiosSelecionados.splice(indice, 1);
-                button.classList.remove("selected");
-            } else {
-                if (boloRecheiosSelecionados.length >= 2) {
-                    alert("Você pode escolher no máximo 2 recheios.");
-                    return;
-                }
-                boloRecheiosSelecionados.push(recheio);
-                button.classList.add("selected");
-            }
-
-            notificarAlteracaoBolo();
-        });
-
-        container.appendChild(button);
-    });
-}
-
-function iniciarModalBolo(container, produto, aoAlterar) {
-    boloContainer = container;
-    boloProdutoAtual = produto;
-    boloAoAlterar = aoAlterar;
-    boloTamanhoSelecionado = null;
-    boloMassaSelecionada = null;
-    boloRecheiosSelecionados = [];
-
-    boloContainer.innerHTML = "";
-
-    if (produto.tamanhos?.length) criarTamanhosBolo();
-    if (produto.massas?.length) criarMassasBolo();
-
-    if (produto.recheiosComuns?.length) {
-        criarRecheiosBolo(
-            "Recheios comuns",
-            produto.recheiosComuns.map(nome => ({ nome, tipo: "comum" }))
-        );
-    }
-
-    if (produto.recheiosPremium?.length) {
-        criarRecheiosBolo(
-            "Recheios premium",
-            produto.recheiosPremium.map(nome => ({ nome, tipo: "premium" })),
-            true
-        );
-    }
-
-    notificarAlteracaoBolo();
-}
+function formatarPrecoBolo(v){return Number(v||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
+function possuiRecheioPremiumBolo(){return boloPlanoRecheio?.premium>0 || boloRecheiosSelecionados.some(r=>r.tipo==='premium');}
+function obterPrecoBolo(){if(!boloProdutoAtual)return 0;if(!boloTamanhoSelecionado)return Number(boloProdutoAtual.preco||0);return Number(possuiRecheioPremiumBolo()?boloTamanhoSelecionado.precoPremium:boloTamanhoSelecionado.precoComum);}
+function obterDadosBolo(){return {tamanho:boloTamanhoSelecionado?.nome||null,massa:boloMassaSelecionada,recheios:boloRecheiosSelecionados.map(r=>({...r})),planoRecheio:boloPlanoRecheio?.label||null,preco:obterPrecoBolo()};}
+function validarBolo(){if(!boloTamanhoSelecionado){alert('Escolha o tamanho do bolo.');return false;}if(!boloMassaSelecionada){alert('Escolha a massa do bolo.');return false;}if(!boloPlanoRecheio){alert('Escolha quantos e quais tipos de recheio deseja.');return false;}const esperado=boloPlanoRecheio.comum+boloPlanoRecheio.premium;if(boloRecheiosSelecionados.length!==esperado){alert(`Escolha ${esperado} ${esperado===1?'recheio':'recheios'} para continuar.`);return false;}return true;}
+function notificarAlteracaoBolo(){if(typeof boloAoAlterar==='function')boloAoAlterar(obterDadosBolo());}
+function avancarBolo(el){const atual=el.closest('.option-section');const prox=atual?.nextElementSibling;if(prox)setTimeout(()=>prox.scrollIntoView({behavior:'smooth',block:'center'}),180);}
+function atualizarProgressoBolo(){const p=boloContainer?.querySelector('.cake-progress-fill');let etapa=0;if(boloTamanhoSelecionado)etapa=1;if(boloMassaSelecionada)etapa=2;if(boloPlanoRecheio)etapa=3;const esperado=boloPlanoRecheio?(boloPlanoRecheio.comum+boloPlanoRecheio.premium):0;if(esperado&&boloRecheiosSelecionados.length===esperado)etapa=4;if(p)p.style.width=`${etapa*25}%`;const t=boloContainer?.querySelector('.cake-progress-text');if(t)t.textContent=`Etapa ${Math.min(etapa+1,4)} de 4`;}
+function criarTamanhosBolo(){const section=document.createElement('div');section.className='option-section';section.innerHTML='<div class="option-title"><h3>1. Escolha o tamanho</h3><span>Obrigatório</span></div><div class="size-options"></div>';boloContainer.appendChild(section);const c=section.querySelector('.size-options');boloProdutoAtual.tamanhos.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='option-card';b.innerHTML=`<div><strong>${t.nome}</strong><small>${t.serve}</small></div><span>${formatarPrecoBolo(t.precoComum)}</span>`;b.onclick=()=>{boloTamanhoSelecionado=t;c.querySelectorAll('.option-card').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');notificarAlteracaoBolo();atualizarProgressoBolo();avancarBolo(b);};c.appendChild(b);});}
+function criarMassasBolo(){const section=document.createElement('div');section.className='option-section';section.innerHTML='<div class="option-title"><h3>2. Escolha a massa</h3><span>Obrigatório</span></div><div class="simple-options"></div>';boloContainer.appendChild(section);const c=section.querySelector('.simple-options');boloProdutoAtual.massas.forEach(m=>{const b=document.createElement('button');b.type='button';b.className='simple-option';b.textContent=m;b.onclick=()=>{c.querySelectorAll('.simple-option').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');boloMassaSelecionada=m;notificarAlteracaoBolo();atualizarProgressoBolo();avancarBolo(b);};c.appendChild(b);});}
+const planos=[{id:'1c',label:'1 sabor comum',comum:1,premium:0},{id:'2c',label:'2 sabores comuns',comum:2,premium:0},{id:'1p',label:'1 sabor premium',comum:0,premium:1},{id:'2p',label:'2 sabores premium',comum:0,premium:2},{id:'cp',label:'1 comum + 1 premium',comum:1,premium:1}];
+function criarPlanoRecheio(){const section=document.createElement('div');section.className='option-section';section.innerHTML='<div class="option-title"><div><h3>3. Escolha os recheios</h3><small>Se houver recheio premium, será aplicado o valor premium do tamanho escolhido.</small></div><span>Obrigatório</span></div><div class="filling-plan-options"></div>';boloContainer.appendChild(section);const c=section.querySelector('.filling-plan-options');planos.forEach(pl=>{const b=document.createElement('button');b.type='button';b.className='filling-plan-option';b.textContent=pl.label;b.onclick=()=>{boloPlanoRecheio=pl;boloRecheiosSelecionados=[];c.querySelectorAll('.filling-plan-option').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');renderizarSaboresBolo();notificarAlteracaoBolo();atualizarProgressoBolo();avancarBolo(b);};c.appendChild(b);});}
+function renderizarSaboresBolo(){const section=boloContainer.querySelector('#cakeFlavorSection');const c=section.querySelector('.cake-flavor-groups');if(!boloPlanoRecheio){c.innerHTML='<p class="cake-flavor-empty">Escolha primeiro a quantidade e o tipo de recheio.</p>';return;}const grupo=(titulo,tipo,nomes,max)=>max?`<div class="cake-flavor-group"><div class="option-title"><div><h3>${titulo}</h3><small>Escolha ${max} ${max===1?'sabor':'sabores'}</small></div><span class="cake-counter" data-counter="${tipo}">0 / ${max}</span></div><div class="filling-options">${nomes.map(n=>`<button type="button" class="filling-option" data-type="${tipo}" data-name="${n}"><div class="filling-info"><span>${n}</span>${tipo==='premium'?'<strong>Valor premium</strong>':''}</div><div class="check">✓</div></button>`).join('')}</div></div>`:'';c.innerHTML=grupo('Recheios comuns','comum',boloProdutoAtual.recheiosComuns||[],boloPlanoRecheio.comum)+grupo('Recheios premium','premium',boloProdutoAtual.recheiosPremium||[],boloPlanoRecheio.premium);c.querySelectorAll('.filling-option').forEach(b=>b.onclick=()=>{const tipo=b.dataset.type,nome=b.dataset.name,limite=boloPlanoRecheio[tipo];const mesmo=boloRecheiosSelecionados.filter(r=>r.tipo===tipo);const idx=boloRecheiosSelecionados.findIndex(r=>r.nome===nome&&r.tipo===tipo);if(idx>=0){boloRecheiosSelecionados.splice(idx,1);b.classList.remove('selected');}else{if(mesmo.length>=limite){alert(`Escolha no máximo ${limite} ${limite===1?'sabor':'sabores'} ${tipo==='premium'?'premium':'comum'}.`);return;}boloRecheiosSelecionados.push({nome,tipo});b.classList.add('selected');}['comum','premium'].forEach(t=>{const ct=c.querySelector(`[data-counter="${t}"]`);if(ct)ct.textContent=`${boloRecheiosSelecionados.filter(r=>r.tipo===t).length} / ${boloPlanoRecheio[t]}`;});notificarAlteracaoBolo();atualizarProgressoBolo();const esperado=boloPlanoRecheio.comum+boloPlanoRecheio.premium;if(boloRecheiosSelecionados.length===esperado)setTimeout(()=>document.getElementById('inspirationOption')?.scrollIntoView({behavior:'smooth',block:'center'}),180);});}
+function criarSaboresBolo(){const section=document.createElement('div');section.className='option-section';section.id='cakeFlavorSection';section.innerHTML='<div class="option-title"><h3>4. Escolha os sabores</h3><span>Obrigatório</span></div><div class="cake-flavor-groups"><p class="cake-flavor-empty">Escolha primeiro a quantidade e o tipo de recheio.</p></div>';boloContainer.appendChild(section);}
+function iniciarModalBolo(container,produto,aoAlterar){boloContainer=container;boloProdutoAtual=produto;boloAoAlterar=aoAlterar;boloTamanhoSelecionado=null;boloMassaSelecionada=null;boloRecheiosSelecionados=[];boloPlanoRecheio=null;boloContainer.innerHTML='<div class="cake-progress"><div class="cake-progress-head"><span>Monte seu bolo</span><small class="cake-progress-text">Etapa 1 de 4</small></div><div class="cake-progress-track"><span class="cake-progress-fill"></span></div></div>';criarTamanhosBolo();criarMassasBolo();criarPlanoRecheio();criarSaboresBolo();notificarAlteracaoBolo();atualizarProgressoBolo();}

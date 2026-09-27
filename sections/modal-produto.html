@@ -66,6 +66,12 @@
             </strong>
 
 
+            <!-- VALOR ACOMPANHA A CONFIGURAÇÃO -->
+            <div class="modal-total">
+                <span>Valor do pedido</span>
+                <strong id="modalTotal">R$ 0,00</strong>
+            </div>
+
             <!-- OPÇÕES PERSONALIZADAS -->
             <div
                 class="product-options"
@@ -105,6 +111,17 @@
             </div>
 
 
+            <!-- FOTO DE INSPIRAÇÃO (BOLOS) -->
+            <div class="modal-option inspiration-option" id="inspirationOption" hidden>
+                <label for="inspirationImage">Foto de inspiração 📷</label>
+                <p class="inspiration-help">Tem uma referência para o bolo? Adicione a foto aqui. Ao finalizar, o WhatsApp lembrará você de enviá-la na conversa.</p>
+                <input type="file" id="inspirationImage" accept="image/*">
+                <div class="inspiration-preview" id="inspirationPreview" hidden>
+                    <img id="inspirationPreviewImage" alt="Prévia da inspiração">
+                    <div><strong>Foto adicionada ✓</strong><button type="button" id="removeInspiration">Remover foto</button></div>
+                </div>
+            </div>
+
             <!-- OBSERVAÇÃO -->
             <div class="modal-option">
 
@@ -119,18 +136,6 @@
                     id="productObservation"
                     placeholder="Ex: escrever nome no bolo, retirar algum ingrediente..."
                 ></textarea>
-
-            </div>
-
-
-            <!-- TOTAL -->
-            <div class="modal-total">
-
-                <span>Total</span>
-
-                <strong id="modalTotal">
-                    R$ 0,00
-                </strong>
 
             </div>
 

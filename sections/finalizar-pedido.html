@@ -250,6 +250,22 @@
                 </div>
 
 
+                <!-- FORMA DE PAGAMENTO -->
+                <div class="checkout-section">
+                    <h3>Forma de pagamento</h3>
+                    <div class="payment-options">
+                        <button type="button" class="payment-option active" data-payment="pix"><span>◆</span><div><strong>PIX</strong><small>Pagamento via PIX</small></div></button>
+                        <button type="button" class="payment-option" data-payment="dinheiro"><span>💵</span><div><strong>Dinheiro</strong><small>Informe se precisa de troco</small></div></button>
+                        <button type="button" class="payment-option" data-payment="credito"><span>💳</span><div><strong>Crédito</strong><small>Link de pagamento</small></div></button>
+                    </div>
+                    <div class="payment-detail" id="pixPaymentDetail">Os dados do PIX serão confirmados no atendimento pelo WhatsApp.</div>
+                    <div class="payment-detail" id="cashPaymentDetail" hidden>
+                        <label class="cash-change-label"><input type="checkbox" id="needsChange"> Preciso de troco</label>
+                        <div class="checkout-field" id="changeForField" hidden><label for="changeFor">Troco para</label><input type="number" id="changeFor" min="0" step="0.01" placeholder="Ex: 200,00"></div>
+                    </div>
+                    <div class="payment-detail" id="creditPaymentDetail" hidden>O link de pagamento no crédito será enviado pela Santo Brigadeiro pelo WhatsApp após a confirmação do pedido.</div>
+                </div>
+
                 <!-- OBSERVAÇÃO GERAL -->
 
                 <div class="checkout-section">

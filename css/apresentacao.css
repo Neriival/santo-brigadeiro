@@ -153,3 +153,10 @@
         width: min(88%, 330px);
     }
 }
+
+/* V11 - texto institucional */
+.about-karina-content { max-width: 650px; }
+.about-karina-highlight { color:#344d58 !important; font-weight:700; }
+.about-karina-signature { display:flex; flex-direction:column; gap:3px; margin-top:20px; padding-top:16px; border-top:1px solid #dceef6; color:#344d58; }
+.about-karina-signature strong { font-size:17px; }
+.about-karina-signature span { color:#63aecd; font-size:13px; font-weight:700; }

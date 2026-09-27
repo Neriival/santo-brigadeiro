@@ -43,12 +43,21 @@ const customerNeighborhood =
 const deliveryOptions =
     document.querySelectorAll(".delivery-option");
 
+const paymentOptions = document.querySelectorAll(".payment-option");
+const pixPaymentDetail = document.getElementById("pixPaymentDetail");
+const cashPaymentDetail = document.getElementById("cashPaymentDetail");
+const creditPaymentDetail = document.getElementById("creditPaymentDetail");
+const needsChange = document.getElementById("needsChange");
+const changeForField = document.getElementById("changeForField");
+const changeFor = document.getElementById("changeFor");
+
 
 /* =========================================================
    CONTROLE
 ========================================================= */
 
 let tipoEntrega = "retirada";
+let formaPagamento = "pix";
 
 
 /* =========================================================
@@ -503,6 +512,24 @@ deliveryOptions.forEach(
 
 
 /* =========================================================
+   PAGAMENTO
+========================================================= */
+paymentOptions.forEach(botao => {
+    botao.addEventListener("click", () => {
+        paymentOptions.forEach(item => item.classList.remove("active"));
+        botao.classList.add("active");
+        formaPagamento = botao.dataset.payment;
+        if (pixPaymentDetail) pixPaymentDetail.hidden = formaPagamento !== "pix";
+        if (cashPaymentDetail) cashPaymentDetail.hidden = formaPagamento !== "dinheiro";
+        if (creditPaymentDetail) creditPaymentDetail.hidden = formaPagamento !== "credito";
+    });
+});
+needsChange?.addEventListener("change", () => {
+    if (changeForField) changeForField.hidden = !needsChange.checked;
+    if (!needsChange.checked && changeFor) changeFor.value = "";
+});
+
+/* =========================================================
    ALTERAR BAIRRO
 ========================================================= */
 
@@ -656,6 +683,9 @@ if (checkoutForm) {
                     ?.value
                     .trim() || "";
 
+            const precisaTroco = formaPagamento === "dinheiro" && Boolean(needsChange?.checked);
+            const trocoPara = precisaTroco ? Number(changeFor?.value || 0) : 0;
+
 
             /* =============================================
                CAMPOS OBRIGATÓRIOS
@@ -676,6 +706,12 @@ if (checkoutForm) {
 
             }
 
+
+            if (precisaTroco && (!trocoPara || trocoPara <= 0)) {
+                alert("Informe para qual valor precisa de troco.");
+                changeFor?.focus();
+                return;
+            }
 
             /* =============================================
                ENDEREÇO
@@ -804,6 +840,13 @@ if (checkoutForm) {
                 horario,
 
                 observacao,
+
+                pagamento: {
+                    tipo: formaPagamento,
+                    nome: formaPagamento === "pix" ? "PIX" : formaPagamento === "dinheiro" ? "Dinheiro" : "Crédito por link",
+                    precisaTroco,
+                    trocoPara: precisaTroco ? trocoPara : null
+                },
 
                 valores: {
 
