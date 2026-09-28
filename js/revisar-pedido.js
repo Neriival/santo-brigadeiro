@@ -954,6 +954,12 @@ function montarMensagemWhatsapp() {
     mensagem +=
         `Olá! Gostaria de fazer um pedido na *Santo Brigadeiro* 💙\n\n`;
 
+    if (pedido.numeroPedido) {
+
+        mensagem +=
+            `🧾 *Pedido: ${pedido.numeroPedido}*\n\n`;
+
+    }
 
     /* CLIENTE */
 
@@ -1090,44 +1096,122 @@ function montarMensagemWhatsapp() {
 
 
 /* =========================================================
-   ENVIAR PARA WHATSAPP
+   ENVIAR PEDIDO
+   SALVAR NO SUPABASE + ABRIR WHATSAPP
 ========================================================= */
 
 if (reviewWhatsapp) {
 
     reviewWhatsapp.addEventListener(
         "click",
-        () => {
+        async () => {
 
-            const mensagem =
-                montarMensagemWhatsapp();
+            const pedido =
+                window.dadosPedido;
 
-
-            if (!mensagem) {
+            if (!pedido) {
 
                 alert(
-                    "Não foi possível montar o pedido."
+                    "Não foi possível encontrar os dados do pedido."
                 );
 
                 return;
-
             }
 
 
-            const mensagemCodificada =
-                encodeURIComponent(
-                    mensagem
+            /* EVITA CLIQUE DUPLO */
+
+            reviewWhatsapp.disabled = true;
+
+            const textoOriginal =
+                reviewWhatsapp.textContent;
+
+            reviewWhatsapp.textContent =
+                "Enviando pedido...";
+
+
+            try {
+
+                /* =========================================
+                   SALVAR NO SUPABASE
+                ========================================= */
+
+                const resultado =
+                    await salvarPedidoSupabase(
+                        pedido
+                    );
+
+
+                if (!resultado.sucesso) {
+
+                    throw resultado.erro ||
+                        new Error(
+                            "Não foi possível salvar o pedido."
+                        );
+                }
+
+
+                console.log(
+                    "Pedido registrado:",
+                    resultado.numeroPedido
                 );
 
 
-            const url =
-                `https://wa.me/${WHATSAPP_SANTO_BRIGADEIRO}?text=${mensagemCodificada}`;
+                /* =========================================
+                   MONTAR WHATSAPP
+                ========================================= */
+
+                const mensagem =
+                    montarMensagemWhatsapp();
 
 
-            window.open(
-                url,
-                "_blank"
-            );
+                if (!mensagem) {
+
+                    throw new Error(
+                        "Não foi possível montar a mensagem."
+                    );
+                }
+
+                const mensagemCodificada =
+                    encodeURIComponent(
+                        mensagem
+                    );
+
+
+                const url =
+                    `https://api.whatsapp.com/send?phone=${WHATSAPP_SANTO_BRIGADEIRO}&text=${mensagemCodificada}`;
+
+                /* =========================================
+                   ABRIR WHATSAPP
+                ========================================= */
+
+                window.open(
+                    url,
+                    "_blank"
+                );
+
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao enviar pedido:",
+                    erro
+                );
+
+                alert(
+                    "Não foi possível registrar o pedido. Tente novamente."
+                );
+
+
+            } finally {
+
+                reviewWhatsapp.disabled =
+                    false;
+
+                reviewWhatsapp.textContent =
+                    textoOriginal;
+
+            }
 
         }
     );
