@@ -58,6 +58,7 @@ async function carregarPedidos() {
   pedidosAdmin = data || [];
 
   renderizarTudo();
+  if (typeof carregarFinanceiroAdmin === 'function') carregarFinanceiroAdmin();
 }
 
 
@@ -674,6 +675,7 @@ async function atualizarStatus(
 
 
   renderizarTudo();
+  if (typeof carregarFinanceiroAdmin === 'function') carregarFinanceiroAdmin();
 }
 
 /* =========================================================

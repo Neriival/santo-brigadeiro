@@ -22,6 +22,9 @@ function configurarEventos() {
   document.getElementById('refreshButton').addEventListener('click', carregarPedidos);
   document.getElementById('searchInput').addEventListener('input', filtrarPedidos);
   document.getElementById('statusFilter').addEventListener('change', filtrarPedidos);
+  configurarProdutosAdmin();
+  configurarClientesAdmin();
+  configurarFinanceiroAdmin();
   document.getElementById('menuButton').addEventListener('click', () => document.getElementById('sidebar').classList.toggle('open'));
   document.addEventListener('click', async e => {
     const nav = e.target.closest('[data-view]'); if (nav) trocarView(nav.dataset.view);
@@ -36,12 +39,14 @@ function configurarEventos() {
 async function mostrarPainel(admin) {
   loginScreen.classList.add('hidden'); adminApp.classList.remove('hidden');
   document.getElementById('adminName').textContent = admin.nome || 'Admin'; document.getElementById('welcomeName').textContent = admin.nome || 'Admin';
+  carregarClientesAdmin();
+  carregarFinanceiroAdmin();
   try { await carregarPedidos(); } catch (e) { console.error(e); document.getElementById('recentOrders').innerHTML = '<div class="empty-state"><strong>Erro ao carregar</strong><p>Confira as permissões do Supabase.</p></div>'; }
 }
 
 function trocarView(view) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active-view'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.view === view));
-  document.getElementById(`${view}View`).classList.add('active-view'); document.getElementById('pageTitle').textContent = view === 'dashboard' ? 'Dashboard' : 'Pedidos';
+  document.getElementById(`${view}View`).classList.add('active-view'); document.getElementById('pageTitle').textContent = ({dashboard:'Dashboard',pedidos:'Pedidos',produtos:'Produtos',clientes:'Clientes e lembretes',financeiro:'Financeiro'})[view] || 'Dashboard'; if (view === 'produtos') carregarProdutosAdmin(); if (view === 'clientes') carregarClientesAdmin(); if (view === 'financeiro') carregarFinanceiroAdmin();
   document.getElementById('sidebar').classList.remove('open');
 }

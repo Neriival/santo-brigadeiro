@@ -10,6 +10,9 @@
   <link href="css/admin.css" rel="stylesheet"/>
   <link href="css/responsive.css" rel="stylesheet"/>
   <link href="css/tema.css" rel="stylesheet"/>
+  <link href="css/produtos.css" rel="stylesheet"/>
+  <link href="css/clientes.css" rel="stylesheet"/>
+  <link href="css/financeiro.css" rel="stylesheet"/>
  </head>
  <body>
   <section class="login-screen" id="loginScreen">
@@ -67,6 +70,9 @@
        Pedidos
       </span>
      </button>
+     <button class="nav-item" data-view="clientes">♡ <span>Clientes e lembretes</span></button>
+     <button class="nav-item" data-view="financeiro">＄ <span>Financeiro</span></button>
+     <button class="nav-item" data-view="produtos">▦ <span>Produtos</span></button>
     </nav>
     <button class="logout" id="logoutButton">
      Sair do painel
@@ -178,6 +184,35 @@
       </div>
      </div>
     </section>
+    <section class="view" id="financeiroView">
+      <div class="panel">
+        <div class="panel-heading"><div><span class="eyebrow">Controle de vendas</span><h2>Faturamento de encomendas confirmadas</h2></div><button class="btn-secondary" id="refreshFinanceiro">Atualizar</button></div>
+        <p class="financeiro-ajuda">O valor entra no mês em que o pedido é confirmado. Pedidos cancelados são descontados. Faturamento não é lucro nem comprovante de pagamento.</p>
+        <label class="financeiro-filtro">Mês <input type="month" id="mesFinanceiro" /></label>
+        <div class="financeiro-resumo">
+          <article class="stat-card"><span>Faturamento no mês</span><strong id="financeiroTotal">R$ 0,00</strong><small>Pedidos confirmados não cancelados</small></article>
+          <article class="stat-card"><span>Encomendas confirmadas</span><strong id="financeiroQuantidade">0</strong><small>No mês selecionado</small></article>
+        </div>
+        <h3>Histórico mensal</h3><div id="financeiroMeses" class="financeiro-meses" aria-live="polite"></div>
+        <h3>Pedidos do mês</h3><div id="financeiroPedidos" aria-live="polite"></div>
+        <p id="financeiroErro" class="form-message" role="alert"></p>
+      </div>
+    </section>
+    <section class="view" id="clientesView">
+      <div class="panel">
+        <div class="panel-heading"><div><span class="eyebrow">Relacionamento</span>
+          <h2>Datas para lembrar</h2></div>
+          <button class="btn-secondary" id="refreshClientes">Atualizar</button>
+        </div>
+        <p class="clientes-ajuda">Avisos de datas de encomendas anteriores que farão aniversário em cerca de um mês. O painel não envia mensagens automaticamente.</p>
+        <div id="lembretesClientes" aria-live="polite"></div>
+      </div>
+      <div class="panel" style="margin-top:24px">
+        <div class="panel-heading"><div><span class="eyebrow">Histórico</span><h2>Clientes cadastrados</h2></div></div>
+        <input id="buscarCliente" type="search" placeholder="Buscar por nome ou telefone" class="clientes-busca" />
+        <div id="listaClientes" aria-live="polite"></div>
+      </div>
+    </section>
     <section class="view" id="pedidosView">
      <div class="toolbar">
       <div class="search-box">
@@ -225,6 +260,13 @@
       </div>
      </div>
     </section>
+    <section class="view" id="produtosView">
+      <div class="panel">
+        <div class="panel-heading"><div><span class="eyebrow">Cardápio</span><h2>Meus produtos</h2></div><button type="button" class="btn-primary" id="novoProduto">+ Novo produto</button></div>
+        <p id="produtosMensagem" role="status" aria-live="polite"></p>
+        <div class="orders-list" id="listaProdutos"></div>
+      </div>
+    </section>
    </main>
   </div>
   <div aria-labelledby="modalTitle" aria-modal="true" class="modal hidden" id="orderModal" role="dialog">
@@ -238,6 +280,23 @@
     </div>
    </div>
   </div>
+  <div class="modal hidden" id="produtoModal" role="dialog" aria-modal="true" aria-labelledby="produtoTitulo">
+    <div class="modal-backdrop" data-fechar-produto></div>
+    <div class="modal-card produto-modal-card">
+      <button class="modal-close" type="button" data-fechar-produto aria-label="Fechar">×</button>
+      <h2 id="produtoTitulo">Novo produto</h2>
+      <form id="produtoForm" class="produto-form">
+        <input type="hidden" id="produtoId" />
+        <label>Nome <input id="produtoNome" maxlength="120" required /></label>
+        <label>Categoria <select id="produtoCategoria" required><option value="bolos">Bolos</option><option value="doces">Doces</option><option value="salgados">Salgados</option><option value="kits">Kits</option><option value="topos">Topos</option><option value="outros">Outros</option></select></label>
+        <label>Descrição <textarea id="produtoDescricao" rows="3"></textarea></label>
+        <label>Preço base (R$) <input id="produtoPreco" type="number" min="0" step="0.01" required /></label>
+        <label class="produto-checkbox"><input type="checkbox" id="produtoAtivo" checked /> Disponível no cardápio</label>
+        <p id="produtoErro" role="alert"></p>
+        <button type="submit" class="btn-primary" id="salvarProduto">Salvar produto</button>
+      </form>
+    </div>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
   </script>
   <script src="../js/supabase-config.js">
@@ -246,6 +305,9 @@
   </script>
   <script src="js/pedidos.js">
   </script>
+  <script src="js/produtos-admin.js"></script>
+  <script src="js/clientes-admin.js"></script>
+  <script src="js/financeiro-admin.js"></script>
   <script src="js/admin.js">
   </script>
  </body>

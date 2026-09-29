@@ -1119,6 +1119,15 @@ if (reviewWhatsapp) {
             }
 
 
+            // Confere novamente o prazo, mesmo se a revisão ficou aberta à meia-noite.
+            if (typeof dataMinimaEncomenda === "function" &&
+                (!pedido.data || pedido.data < dataMinimaEncomenda())) {
+                alert("A data escolhida não atende ao prazo mínimo de 2 dias. Altere a data da encomenda.");
+                fecharRevisaoPedido();
+                if (typeof abrirCheckout === "function") abrirCheckout();
+                return;
+            }
+
             /* EVITA CLIQUE DUPLO */
 
             reviewWhatsapp.disabled = true;

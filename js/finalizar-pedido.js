@@ -330,6 +330,26 @@ function atualizarTotalCheckout() {
 
 
 /* =========================================================
+   PRAZO MÍNIMO: ENCOMENDAS COM 2 DIAS DE ANTECEDÊNCIA
+   Usa a data local do navegador, sem conversão UTC.
+========================================================= */
+function dataMinimaEncomenda() {
+    const data = new Date();
+    data.setHours(12, 0, 0, 0);
+    data.setDate(data.getDate() + 2);
+    return [data.getFullYear(), String(data.getMonth() + 1).padStart(2, "0"),
+        String(data.getDate()).padStart(2, "0")].join("-");
+}
+
+function atualizarPrazoEncomenda() {
+    const campo = document.getElementById("orderDate");
+    if (!campo) return;
+    const minimo = dataMinimaEncomenda();
+    campo.min = minimo;
+    if (campo.value && campo.value < minimo) campo.value = "";
+}
+
+/* =========================================================
    ABRIR CHECKOUT
 ========================================================= */
 
@@ -355,6 +375,7 @@ function abrirCheckout() {
 
 
     atualizarTotalCheckout();
+    atualizarPrazoEncomenda();
 
 
     /*
@@ -706,6 +727,13 @@ if (checkoutForm) {
 
             }
 
+
+            if (data < dataMinimaEncomenda()) {
+                alert("Encomendas precisam ser feitas com pelo menos 2 dias de antecedência.");
+                atualizarPrazoEncomenda();
+                document.getElementById("orderDate")?.focus();
+                return;
+            }
 
             if (precisaTroco && (!trocoPara || trocoPara <= 0)) {
                 alert("Informe para qual valor precisa de troco.");

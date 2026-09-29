@@ -1,0 +1,5 @@
+/* Produtos: visual alinhado ao painel Santo Brigadeiro */
+.produto-card{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px;border:1px solid #d3e8f3;border-radius:18px;background:#fff;margin-top:12px;transition:transform .2s ease,box-shadow .2s ease}
+.produto-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px #2d688218}
+.produto-card strong{font-size:1.06rem}.produto-card p{margin:6px 0 0;color:#657c8a}
+.produto-modal-card{max-width:540px;max-height:90vh;overflow-y:auto}.produto-form{display:grid;gap:14px;margin-top:18px}.produto-form label{display:grid;gap:6px;color:#294b5a;font-weight:600}.produto-form input:not([type=checkbox]),.produto-form select,.produto-form textarea{width:100%;padding:12px;border:1px solid #c8e1ed;border-radius:12px;background:#f7fcff;font:inherit}.produto-checkbox{display:flex!important;align-items:center;gap:10px!important}.produto-form #produtoErro{color:#ad3636;margin:0}.produto-form button{justify-self:start}@media(max-width:600px){.produto-card{align-items:flex-start;flex-direction:column}}
