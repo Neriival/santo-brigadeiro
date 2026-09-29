@@ -1,3 +1,5 @@
+/* Inicialização do painel, navegação e eventos | Santo Brigadeiro */
+
 document.addEventListener('DOMContentLoaded', iniciarPainel);
 
 async function iniciarPainel() {
@@ -26,6 +28,7 @@ function configurarEventos() {
     if (e.target.closest('[data-go-pedidos]')) trocarView('pedidos');
     const open = e.target.closest('[data-open-order]'); if (open) { try { await abrirPedido(open.dataset.openOrder); } catch(err) { console.error(err); alert('Não foi possível abrir os detalhes do pedido.'); } }
     if (e.target.closest('[data-close-modal]')) document.getElementById('orderModal').classList.add('hidden');
+    const excluir = e.target.closest('#deleteOrder'); if (excluir) { try { await excluirPedidoAdmin(excluir.dataset.id); } catch(err) { console.error(err); } }
     const save = e.target.closest('#saveStatus'); if (save) { save.disabled = true; try { await atualizarStatus(save.dataset.id, document.getElementById('modalStatus').value); } catch(err) { console.error(err); } finally { save.disabled = false; } }
   });
 }

@@ -1,3 +1,5 @@
+/* Login, sessão e autorização administrativa | Santo Brigadeiro */
+
 const loginScreen = document.getElementById('loginScreen');
 const adminApp = document.getElementById('adminApp');
 

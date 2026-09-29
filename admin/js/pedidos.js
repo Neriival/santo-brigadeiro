@@ -1,3 +1,5 @@
+/* Listagem, filtros, detalhes e status dos pedidos | Santo Brigadeiro */
+
 const STATUS = {
   novo: 'Novo',
   confirmado: 'Confirmado',
@@ -427,6 +429,13 @@ async function abrirPedido(id) {
       </p>
 
     </div>
+
+    <div class="delete-order-section">
+      <p>Exclusão permanente: utilize apenas para pedidos de teste ou registros que devem ser removidos.</p>
+      <button type="button" class="btn-delete-order" id="deleteOrder"
+              data-id="${escapar(pedido.id)}">Excluir este pedido</button>
+      <p id="deleteMessage" class="form-message" role="status"></p>
+    </div>
   `;
 
   document
@@ -665,4 +674,43 @@ async function atualizarStatus(
 
 
   renderizarTudo();
+}
+
+/* =========================================================
+   EXCLUIR PEDIDO — SOMENTE ADMIN AUTENTICADO
+   A autorização e a exclusão de itens são feitas no banco.
+========================================================= */
+async function excluirPedidoAdmin(id) {
+  const pedido = pedidosAdmin.find(p => String(p.id) === String(id));
+  if (!pedido) throw new Error('Pedido não encontrado.');
+
+  const confirmacao = window.prompt(
+    `Excluir permanentemente ${numeroPedido(pedido)} de ${pedido.nome_cliente}?\n` +
+    'Os produtos vinculados também serão excluídos.\n\n' +
+    'Para confirmar, digite EXCLUIR:'
+  );
+  if (confirmacao !== 'EXCLUIR') return;
+
+  const botao = document.getElementById('deleteOrder');
+  const mensagem = document.getElementById('deleteMessage');
+  botao.disabled = true;
+  mensagem.textContent = 'Excluindo pedido...';
+
+  try {
+    const { data, error } = await supabaseClient.rpc('excluir_pedido_admin', {
+      p_pedido_id: pedido.id
+    });
+    if (error) throw error;
+    if (data !== true) throw new Error('O banco não confirmou a exclusão.');
+
+    document.getElementById('orderModal').classList.add('hidden');
+    await carregarPedidos();
+    window.alert(`Pedido ${numeroPedido(pedido)} excluído com sucesso.`);
+  } catch (erro) {
+    console.error('Erro ao excluir pedido:', erro);
+    mensagem.textContent = 'Não foi possível excluir. Verifique o SQL e as permissões.';
+    throw erro;
+  } finally {
+    botao.disabled = false;
+  }
 }

@@ -1,72 +1,253 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Painel | Santo Brigadeiro</title>
-  <link rel="stylesheet" href="css/admin.css">
-</head>
-<body>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="noindex,nofollow" name="robots"/>
+  <title>
+   Painel | Santo Brigadeiro
+  </title>
+  <link href="css/admin.css" rel="stylesheet"/>
+  <link href="css/responsive.css" rel="stylesheet"/>
+  <link href="css/tema.css" rel="stylesheet"/>
+ </head>
+ <body>
   <section class="login-screen" id="loginScreen">
-    <div class="login-card">
-      <img src="../assets/logo/logo.png" alt="Santo Brigadeiro" class="login-logo">
-      <span class="eyebrow">Área administrativa</span>
-      <h1>Painel da Karina</h1>
-      <p>Entre para acompanhar e organizar as encomendas.</p>
-      <form id="loginForm" class="login-form">
-        <label>E-mail<input id="email" type="email" autocomplete="username" required></label>
-        <label>Senha<input id="senha" type="password" autocomplete="current-password" required></label>
-        <button type="submit" class="btn-primary" id="loginButton">Entrar</button>
-        <p class="form-message" id="loginMessage" aria-live="polite"></p>
-      </form>
-    </div>
+   <div class="login-card">
+    <img alt="Santo Brigadeiro" class="login-logo" src="../assets/logo/logo.png"/>
+    <span class="eyebrow">
+     Área administrativa
+    </span>
+    <h1>
+     Painel da Karina
+    </h1>
+    <p>
+     Entre para acompanhar e organizar as encomendas.
+    </p>
+    <form class="login-form" id="loginForm">
+     <label>
+      E-mail
+      <input autocomplete="username" id="email" required="" type="email"/>
+     </label>
+     <label>
+      Senha
+      <input autocomplete="current-password" id="senha" required="" type="password"/>
+     </label>
+     <button class="btn-primary" id="loginButton" type="submit">
+      Entrar
+     </button>
+     <p aria-live="polite" class="form-message" id="loginMessage">
+     </p>
+    </form>
+   </div>
   </section>
-
   <div class="admin-app hidden" id="adminApp">
-    <aside class="sidebar" id="sidebar">
-      <div class="brand"><img src="../assets/logo/logo.png" alt="Santo Brigadeiro"><div><strong>Santo Brigadeiro</strong><span>Administração</span></div></div>
-      <nav>
-        <button class="nav-item active" data-view="dashboard">⌂ <span>Dashboard</span></button>
-        <button class="nav-item" data-view="pedidos">▤ <span>Pedidos</span></button>
-      </nav>
-      <button class="logout" id="logoutButton">Sair do painel</button>
-    </aside>
-
-    <main class="main-content">
-      <header class="topbar">
-        <button class="menu-button" id="menuButton" aria-label="Abrir menu">☰</button>
-        <div><span class="eyebrow">Santo Brigadeiro</span><h1 id="pageTitle">Dashboard</h1></div>
-        <div class="admin-badge"><span class="admin-dot"></span><span id="adminName">Karina</span></div>
-      </header>
-
-      <section id="dashboardView" class="view active-view">
-        <div class="welcome-card"><div><span class="eyebrow">Visão geral</span><h2>Olá, <span id="welcomeName">Karina</span> 👋</h2><p>Acompanhe as encomendas e o andamento da produção.</p></div><button class="btn-secondary" id="refreshButton">Atualizar pedidos</button></div>
-        <div class="stats-grid">
-          <article class="stat-card"><span>Pedidos</span><strong id="statTotal">0</strong><small>Total cadastrado</small></article>
-          <article class="stat-card"><span>Novos</span><strong id="statNovos">0</strong><small>Aguardando confirmação</small></article>
-          <article class="stat-card"><span>Em produção</span><strong id="statProducao">0</strong><small>Em preparação</small></article>
-          <article class="stat-card"><span>Prontos</span><strong id="statProntos">0</strong><small>Aguardando retirada/entrega</small></article>
-        </div>
-        <div class="panel"><div class="panel-heading"><div><span class="eyebrow">Mais recentes</span><h2>Últimos pedidos</h2></div><button class="text-button" data-go-pedidos>Ver todos</button></div><div id="recentOrders" class="orders-list"></div></div>
-      </section>
-
-      <section id="pedidosView" class="view">
-        <div class="toolbar"><div class="search-box"><input type="search" id="searchInput" placeholder="Buscar por cliente, telefone ou nº do pedido"></div><select id="statusFilter"><option value="todos">Todos os status</option><option value="novo">Novo</option><option value="confirmado">Confirmado</option><option value="em_producao">Em produção</option><option value="pronto">Pronto</option><option value="finalizado">Finalizado</option><option value="cancelado">Cancelado</option></select></div>
-        <div class="panel"><div class="panel-heading"><div><span class="eyebrow">Encomendas</span><h2>Todos os pedidos</h2></div><span class="counter" id="ordersCounter">0 pedidos</span></div><div id="ordersList" class="orders-list"></div></div>
-      </section>
-    </main>
+   <aside class="sidebar" id="sidebar">
+    <div class="brand">
+     <img alt="Santo Brigadeiro" src="../assets/logo/logo.png"/>
+     <div>
+      <strong>
+       Santo Brigadeiro
+      </strong>
+      <span>
+       Administração
+      </span>
+     </div>
+    </div>
+    <nav>
+     <button class="nav-item active" data-view="dashboard">
+      ⌂
+      <span>
+       Dashboard
+      </span>
+     </button>
+     <button class="nav-item" data-view="pedidos">
+      ▤
+      <span>
+       Pedidos
+      </span>
+     </button>
+    </nav>
+    <button class="logout" id="logoutButton">
+     Sair do painel
+    </button>
+   </aside>
+   <main class="main-content">
+    <header class="topbar">
+     <button aria-label="Abrir menu" class="menu-button" id="menuButton">
+      ☰
+     </button>
+     <div>
+      <span class="eyebrow">
+       Santo Brigadeiro
+      </span>
+      <h1 id="pageTitle">
+       Dashboard
+      </h1>
+     </div>
+     <div class="admin-badge">
+      <span class="admin-dot">
+      </span>
+      <span id="adminName">
+       Karina
+      </span>
+     </div>
+    </header>
+    <section class="view active-view" id="dashboardView">
+     <div class="welcome-card">
+      <div>
+       <span class="eyebrow">
+        Visão geral
+       </span>
+       <h2>
+        Olá,
+        <span id="welcomeName">
+         Karina
+        </span>
+        👋
+       </h2>
+       <p>
+        Acompanhe as encomendas e o andamento da produção.
+       </p>
+      </div>
+      <button class="btn-secondary" id="refreshButton">
+       Atualizar pedidos
+      </button>
+     </div>
+     <div class="stats-grid">
+      <article class="stat-card">
+       <span>
+        Pedidos
+       </span>
+       <strong id="statTotal">
+        0
+       </strong>
+       <small>
+        Total cadastrado
+       </small>
+      </article>
+      <article class="stat-card">
+       <span>
+        Novos
+       </span>
+       <strong id="statNovos">
+        0
+       </strong>
+       <small>
+        Aguardando confirmação
+       </small>
+      </article>
+      <article class="stat-card">
+       <span>
+        Em produção
+       </span>
+       <strong id="statProducao">
+        0
+       </strong>
+       <small>
+        Em preparação
+       </small>
+      </article>
+      <article class="stat-card">
+       <span>
+        Prontos
+       </span>
+       <strong id="statProntos">
+        0
+       </strong>
+       <small>
+        Aguardando retirada/entrega
+       </small>
+      </article>
+     </div>
+     <div class="panel">
+      <div class="panel-heading">
+       <div>
+        <span class="eyebrow">
+         Mais recentes
+        </span>
+        <h2>
+         Últimos pedidos
+        </h2>
+       </div>
+       <button class="text-button" data-go-pedidos="">
+        Ver todos
+       </button>
+      </div>
+      <div class="orders-list" id="recentOrders">
+      </div>
+     </div>
+    </section>
+    <section class="view" id="pedidosView">
+     <div class="toolbar">
+      <div class="search-box">
+       <input id="searchInput" placeholder="Buscar por cliente, telefone ou nº do pedido" type="search"/>
+      </div>
+      <select id="statusFilter">
+       <option value="todos">
+        Todos os status
+       </option>
+       <option value="novo">
+        Novo
+       </option>
+       <option value="confirmado">
+        Confirmado
+       </option>
+       <option value="em_producao">
+        Em produção
+       </option>
+       <option value="pronto">
+        Pronto
+       </option>
+       <option value="finalizado">
+        Finalizado
+       </option>
+       <option value="cancelado">
+        Cancelado
+       </option>
+      </select>
+     </div>
+     <div class="panel">
+      <div class="panel-heading">
+       <div>
+        <span class="eyebrow">
+         Encomendas
+        </span>
+        <h2>
+         Todos os pedidos
+        </h2>
+       </div>
+       <span class="counter" id="ordersCounter">
+        0 pedidos
+       </span>
+      </div>
+      <div class="orders-list" id="ordersList">
+      </div>
+     </div>
+    </section>
+   </main>
   </div>
-
-  <div class="modal hidden" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-backdrop" data-close-modal></div>
-    <div class="modal-card"><button class="modal-close" data-close-modal aria-label="Fechar">×</button><div id="orderDetails"></div></div>
+  <div aria-labelledby="modalTitle" aria-modal="true" class="modal hidden" id="orderModal" role="dialog">
+   <div class="modal-backdrop" data-close-modal="">
+   </div>
+   <div class="modal-card">
+    <button aria-label="Fechar" class="modal-close" data-close-modal="">
+     ×
+    </button>
+    <div id="orderDetails">
+    </div>
+   </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../js/supabase-config.js"></script>
-  <script src="js/auth.js"></script>
-  <script src="js/pedidos.js"></script>
-  <script src="js/admin.js"></script>
-</body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+  <script src="../js/supabase-config.js">
+  </script>
+  <script src="js/auth.js">
+  </script>
+  <script src="js/pedidos.js">
+  </script>
+  <script src="js/admin.js">
+  </script>
+ </body>
 </html>
+

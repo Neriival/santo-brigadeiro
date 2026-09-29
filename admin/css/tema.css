@@ -1,0 +1,225 @@
+/* 02 - Identidade visual Santo Brigadeiro, animações e correção da logo. */
+/* =============================================
+   IDENTIDADE SANTO BRIGADEIRO + MICROINTERAÇÕES
+   ============================================= */
+
+:root {
+    --bg: #f1faff;
+    --surface: #fff;
+    --ink: #284957;
+    --muted: #738d99;
+    --blue: #d9f1fb;
+    --blue-strong: #87cbe5;
+    --blue-dark: #438eae;
+    --line: #dceef6;
+    --shadow: 0 16px 42px rgba(54,91,108,.09);
+    --radius: 24px;
+}
+
+body {
+    background: linear-gradient(180deg,#f1faff 0%,#fff 65%);
+}
+
+.login-screen {
+    background: radial-gradient(circle at 12% 12%,#d7f1ff,transparent 37%),radial-gradient(circle at 90% 88%,#e6f7ff,transparent 35%),#f8fcff;
+}
+
+.login-card {
+    border: 1px solid #dceef6;
+    box-shadow: 0 22px 65px rgba(54,91,108,.12);
+    animation: sb-rise .55s cubic-bezier(.2,.75,.3,1) both;
+}
+
+.login-logo {
+    transition: transform .35s ease;
+}
+
+.login-logo:hover {
+    transform: scale(1.055);
+}
+
+.sidebar {
+    background: linear-gradient(165deg,#347f9d,#23536b);
+    box-shadow: 8px 0 30px rgba(37,83,107,.08);
+}
+
+.brand img {
+    border: 1px solid rgba(255,255,255,.75);
+    box-shadow: 0 6px 20px rgba(0,0,0,.1);
+}
+
+.nav-item,.logout {
+    transition: background .23s ease,color .23s ease,transform .23s ease;
+}
+
+.nav-item:hover,.logout:hover {
+    transform: translateX(4px);
+    background: rgba(255,255,255,.15);
+}
+
+.nav-item.active {
+    background: rgba(255,255,255,.22);
+    box-shadow: inset 3px 0 #d8f3ff;
+}
+
+.main-content {
+    background: radial-gradient(circle at 100% 0%,#e7f7ff 0%,transparent 36%);
+}
+
+.topbar {
+    animation: sb-fade .4s ease both;
+}
+
+.admin-badge {
+    box-shadow: 0 4px 18px rgba(54,91,108,.06);
+}
+
+.welcome-card {
+    background: linear-gradient(120deg,#dff3ff,#f7fcff 72%,#fff);
+    border-color: #d4ebf7;
+    box-shadow: 0 10px 30px rgba(54,91,108,.06);
+}
+
+.stat-card,.panel,.order-card {
+    transition: transform .26s ease,box-shadow .26s ease,border-color .26s ease;
+}
+
+.stat-card:hover,.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(54,91,108,.1);
+    border-color: #b7e1f3;
+}
+
+.panel {
+    box-shadow: 0 10px 28px rgba(54,91,108,.05);
+}
+
+.btn-primary,.btn-secondary,.details-button,.text-button,.modal-close,.menu-button {
+    transition: transform .2s ease,background .2s ease,box-shadow .2s ease,color .2s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg,#438eae,#347c9b);
+    box-shadow: 0 6px 16px rgba(67,142,174,.17);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg,#347c9b,#276b8b);
+    box-shadow: 0 9px 22px rgba(67,142,174,.25);
+    transform: translateY(-2px);
+}
+
+.btn-secondary:hover,.details-button:hover,.modal-close:hover,.menu-button:hover {
+    background: #d8effa;
+    transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+    transform: scale(.97);
+}
+
+button:focus-visible,input:focus-visible,select:focus-visible {
+    outline: 3px solid #87cbe5;
+    outline-offset: 3px;
+}
+
+.active-view {
+    animation: sb-rise .38s cubic-bezier(.2,.75,.3,1) both;
+}
+
+.active-view .stat-card {
+    animation: sb-rise .42s ease both;
+}
+
+.active-view .stat-card:nth-child(2) {
+    animation-delay: .05s;
+}
+
+.active-view .stat-card:nth-child(3) {
+    animation-delay: .1s;
+}
+
+.active-view .stat-card:nth-child(4) {
+    animation-delay: .15s;
+}
+
+.orders-list .order-card {
+    animation: sb-rise .3s ease both;
+}
+
+.modal:not(.hidden) .modal-backdrop {
+    animation: sb-fade .25s ease both;
+}
+
+.modal:not(.hidden) .modal-card {
+    animation: sb-modal .34s cubic-bezier(.2,.75,.3,1) both;
+}
+
+.modal-card {
+    border: 1px solid #dceef6;
+    box-shadow: 0 28px 85px rgba(21,59,78,.25);
+}
+
+.modal-backdrop {
+    background: rgba(27,64,83,.54);
+    backdrop-filter: blur(7px);
+}
+
+.detail-grid>div,.info-box {
+    background: #f0f9ff;
+    border: 1px solid #e2f2fa;
+}
+
+@keyframes sb-fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes sb-rise {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sb-modal {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(.975);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        animation-duration: .01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Logo sem fundo branco */
+
+.sidebar .logo img,
+.sidebar .brand img {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 50%;
+}
