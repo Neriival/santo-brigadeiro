@@ -1,15 +1,17 @@
-# Santo Brigadeiro — organização do projeto
+# Organização — Santo Brigadeiro
 
-- `index.html`, `css/`, `js/` e `sections/`: site do cliente, carrinho e finalização.
-- `admin/`: painel da Karina (login, dashboard, pedidos e exclusão).
-- `assets/`: imagens utilizadas pelo site e pelo painel.
-- `docs/sql/`: SQL de instalação e manutenção; **não é executado automaticamente**.
+- `index.html`, `css/`, `js/`, `sections/`: cardápio público, carrinho e finalização.
+- `admin/index.html`, `admin/css/`, `admin/js/`: painel da Karina, pedidos, clientes, financeiro e produtos.
+- `assets/`: logo e imagens locais em uso.
+- `docs/`: guias de instalação; `docs/sql/`: scripts executados **manualmente** no Supabase.
+- `.gitignore`: arquivos locais e credenciais que não devem ser publicados.
 
-## Limpeza realizada
-- Removida a pasta `.git` somente da cópia de distribuição: não deve ser substituída no projeto local, pois contém o histórico Git.
-- Documentação da exclusão e SQL movidos para `docs/`.
-- Adicionado `.gitignore` para evitar inclusão acidental de credenciais e arquivos locais.
-- Os arquivos HTML, CSS e JavaScript usados pelo site não foram removidos nem tiveram lógica alterada.
+## Limpeza nesta versão
+- O ZIP de distribuição não inclui `.git`; **não substitua nem apague** sua pasta `.git` local.
+- Eliminadas cópias idênticas do SQL de exclusão e do respectivo guia dentro de `admin/`; versões oficiais em `docs/`.
+- Preservados os arquivos CSS/JS e imagens usados pelo site e painel.
+- Nova galeria em `admin/js/produtos-admin.js`, `admin/css/produtos.css` e `docs/sql/galeria-produtos.sql`.
 
-## Próxima fase: catálogo gerenciável
-O cardápio está atualmente em `js/produtos.js`. Antes de editar produtos pelo painel e publicar alterações automaticamente, criar tabelas de produtos/configurações e políticas RLS no Supabase, migrar o catálogo existente e atualizar o carregamento no site. Não apagar `js/produtos.js` antes de testar essa migração.
+## Atenção
+A galeria desta etapa gerencia fotos dos produtos cadastrados no Supabase **dentro do painel**.
+O catálogo público ainda utiliza `js/produtos.js`; a migração para produtos gerenciados será uma etapa separada.

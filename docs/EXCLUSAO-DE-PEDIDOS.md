@@ -1,8 +1,8 @@
 # Botão Excluir pedido — Santo Brigadeiro
 
 1. Faça backup do projeto e dos pedidos de teste.
-2. Substitua apenas `admin/js/pedidos.js`, `admin/js/admin.js` e `admin/css/admin.css`.
-3. No Supabase SQL Editor, execute `admin/SQL-exclusao-pedido.sql`.
+2. Confira os arquivos do painel na pasta `admin/`.
+3. No Supabase SQL Editor, execute `docs/sql/exclusao-pedido.sql`.
 4. Atualize o painel com Ctrl+F5, entre como Karina e abra os detalhes de UM pedido de teste.
 5. Clique em **Excluir este pedido**, digite `EXCLUIR` e confira a lista de pedidos.
 6. Se houver erro de chave estrangeira por outras tabelas vinculadas, NÃO desative restrições: identifique a tabela e ajuste a função.

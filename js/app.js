@@ -42,6 +42,12 @@ function obterPlaceholderProduto(produto) {
     return placeholdersProdutos[produto.categoria] || "🧁";
 }
 
+function escaparTextoProduto(valor) {
+    return String(valor ?? '').replace(/[&<>"']/g, char => ({
+        '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+    })[char]);
+}
+
 function criarCardProduto(produto) {
     const card = document.createElement("article");
     card.className = "product-card";
@@ -50,18 +56,18 @@ function criarCardProduto(produto) {
     card.innerHTML = `
         <div class="product-image">
             ${produto.imagem
-                ? `<img src="${produto.imagem}" alt="${produto.nome}">`
+                ? `<img src="${escaparTextoProduto(produto.imagem)}" alt="${escaparTextoProduto(produto.nome)}">`
                 : `<div class="no-image">${obterPlaceholderProduto(produto)}</div>`}
         </div>
 
         <div class="product-info">
-            <span class="product-category">${nomesCategoriasHome[produto.categoria] || produto.categoria}</span>
-            <h3>${produto.nome}</h3>
-            <p>${produto.descricao}</p>
+            <span class="product-category">${escaparTextoProduto(nomesCategoriasHome[produto.categoria] || produto.categoria)}</span>
+            <h3>${escaparTextoProduto(produto.nome)}</h3>
+            <p>${escaparTextoProduto(produto.descricao)}</p>
 
             <div class="product-footer">
                 <strong>${formatarPrecoHome(produto.preco)}</strong>
-                <button class="add-product" type="button" data-id="${produto.id}" aria-label="Abrir ${produto.nome}">+</button>
+                <button class="add-product" type="button" data-id="${produto.id}" aria-label="Abrir ${escaparTextoProduto(produto.nome)}">+</button>
             </div>
         </div>
     `;

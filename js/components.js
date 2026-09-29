@@ -33,6 +33,8 @@ async function iniciarComponentes() {
     await carregarComponente("sections/finalizar-pedido.html", "checkout-container");
     await carregarComponente("sections/revisar-pedido.html", "review-container");
 
+    await carregarCatalogoOnline();
+
     /* O app precisa do HTML da home antes de configurar categorias/busca. */
     document.dispatchEvent(new Event("componentsLoaded"));
 

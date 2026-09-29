@@ -29,6 +29,7 @@ let quantidadeAtual = 1;
 let carrinho = [];
 let inspirationFileName = "";
 let inspirationObjectUrl = "";
+let indiceFotoModal = 0;
 
 function formatarPreco(valor) {
     return Number(valor || 0).toLocaleString("pt-BR", {
@@ -119,12 +120,47 @@ function abrirProduto(id) {
         ? (produto.tipoConfiguracao === "kit-festa" ? "🎉" : "🎈")
         : (iconesModal[produto.categoria] || "🧁");
 
-    modalProductImage.innerHTML = produto.imagem
-        ? `<img src="${produto.imagem}" alt="${produto.nome}">`
-        : `<div class="modal-no-image">${iconeModal}</div>`;
+    indiceFotoModal = 0;
+    const fotosModal = produto.galeria?.length ? produto.galeria : (produto.imagem ? [produto.imagem] : []);
+    modalProductImage.replaceChildren();
+    if (fotosModal.length) {
+        const imagem = document.createElement('img');
+        imagem.src = fotosModal[0];
+        imagem.alt = `Foto de ${produto.nome}`;
+        imagem.id = 'fotoAtualModal';
+        modalProductImage.append(imagem);
+        if (fotosModal.length > 1) {
+            const anterior = document.createElement('button');
+            anterior.type = 'button'; anterior.className = 'galeria-seta galeria-anterior';
+            anterior.textContent = '‹'; anterior.setAttribute('aria-label','Foto anterior');
+            const proxima = document.createElement('button');
+            proxima.type = 'button'; proxima.className = 'galeria-seta galeria-proxima';
+            proxima.textContent = '›'; proxima.setAttribute('aria-label','Próxima foto');
+            const contador = document.createElement('span');
+            contador.className = 'galeria-contador';
+            const atualizar = () => {
+                imagem.src = fotosModal[indiceFotoModal];
+                contador.textContent = `${indiceFotoModal + 1} / ${fotosModal.length}`;
+            };
+            anterior.addEventListener('click', () => {
+                indiceFotoModal = (indiceFotoModal - 1 + fotosModal.length) % fotosModal.length;
+                atualizar();
+            });
+            proxima.addEventListener('click', () => {
+                indiceFotoModal = (indiceFotoModal + 1) % fotosModal.length;
+                atualizar();
+            });
+            modalProductImage.append(anterior,proxima,contador);
+            atualizar();
+        }
+    } else {
+        const semFoto = document.createElement('div');
+        semFoto.className = 'modal-no-image'; semFoto.textContent = iconeModal;
+        modalProductImage.append(semFoto);
+    }
 
     if (quantidadeProdutoContainer) {
-        quantidadeProdutoContainer.style.display = (["doces", "salgados"].includes(produto.categoria) || produto.tipoConfiguracao === "kit-festa") ? "none" : "";
+        quantidadeProdutoContainer.style.display = (!produto.origemBanco && (["doces", "salgados"].includes(produto.categoria) || produto.tipoConfiguracao === "kit-festa")) ? "none" : "";
     }
 
     criarOpcoesProduto();
@@ -143,6 +179,8 @@ function fecharProduto() {
 function criarOpcoesProduto() {
     productOptions.innerHTML = "";
     if (!produtoAtual) return;
+
+    if (produtoAtual.origemBanco) return;
 
     if (produtoAtual.categoria === "doces") {
         iniciarModalDoces(productOptions, produtoAtual, () => {
@@ -179,6 +217,7 @@ function criarOpcoesProduto() {
 function obterPrecoAtual() {
     if (!produtoAtual) return 0;
 
+    if (produtoAtual.origemBanco) return Number(produtoAtual.preco || 0);
     if (produtoAtual.categoria === "doces") return Number(obterDadosDoces()?.preco || 0);
     if (produtoAtual.categoria === "salgados") return Number(obterDadosSalgados()?.preco || 0);
     if (produtoAtual.tipoConfiguracao === "kit-festa") return Number(obterDadosKit()?.preco || produtoAtual.preco || 0);
@@ -196,19 +235,19 @@ function atualizarPrecoProduto() {
 
 function atualizarTotal() {
     if (!produtoAtual || !modalTotal) return;
-    const multiplicador = (["doces", "salgados"].includes(produtoAtual.categoria) || produtoAtual.tipoConfiguracao === "kit-festa") ? 1 : quantidadeAtual;
+    const multiplicador = (!produtoAtual.origemBanco && (["doces", "salgados"].includes(produtoAtual.categoria) || produtoAtual.tipoConfiguracao === "kit-festa")) ? 1 : quantidadeAtual;
     modalTotal.textContent = formatarPreco(obterPrecoAtual() * multiplicador);
 }
 
 increaseQuantity?.addEventListener("click", () => {
-    if (["doces", "salgados"].includes(produtoAtual?.categoria) || produtoAtual?.tipoConfiguracao === "kit-festa") return;
+    if (!produtoAtual?.origemBanco && (["doces", "salgados"].includes(produtoAtual?.categoria) || produtoAtual?.tipoConfiguracao === "kit-festa")) return;
     quantidadeAtual++;
     productQuantity.textContent = quantidadeAtual;
     atualizarTotal();
 });
 
 decreaseQuantity?.addEventListener("click", () => {
-    if (["doces", "salgados"].includes(produtoAtual?.categoria) || produtoAtual?.tipoConfiguracao === "kit-festa" || quantidadeAtual <= 1) return;
+    if ((!produtoAtual?.origemBanco && (["doces", "salgados"].includes(produtoAtual?.categoria) || produtoAtual?.tipoConfiguracao === "kit-festa")) || quantidadeAtual <= 1) return;
     quantidadeAtual--;
     productQuantity.textContent = quantidadeAtual;
     atualizarTotal();
@@ -216,6 +255,26 @@ decreaseQuantity?.addEventListener("click", () => {
 
 modalAddCart?.addEventListener("click", () => {
     if (!produtoAtual) return;
+
+    if (produtoAtual.origemBanco) {
+        const observacao = productObservation?.value.trim() || '';
+        if (produtoAtual.categoria === 'topos' && !observacao) {
+            alert('Descreva como deseja seu topo personalizado.');
+            productObservation?.focus(); return;
+        }
+        const preco = Number(produtoAtual.preco);
+        carrinho.push({
+            id: Date.now(), produtoId: produtoAtual.id, nome: produtoAtual.nome,
+            categoria: produtoAtual.categoria, quantidade: quantidadeAtual,
+            precoUnitario: preco, total: preco * quantidadeAtual,
+            tamanho: null, massa: null, recheios: [], observacao,
+            temInspiracao: Boolean(inspirationFileName),
+            nomeArquivoInspiracao: inspirationFileName || null
+        });
+        atualizarContadorCarrinho();
+        alert('Produto adicionado ao carrinho!');
+        fecharProduto(); return;
+    }
 
     if (produtoAtual.categoria === "doces") {
         if (!validarDoces()) return;
