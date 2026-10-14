@@ -45,6 +45,14 @@ img {
     display: block;
 }
 
+/* Garante que o atributo "hidden" sempre esconda o elemento.
+   Sem isso, um "display: grid" ou "display: flex" em outra
+   regra (ex.: .about-karina) vence o hidden e o elemento
+   continua aparecendo. */
+[hidden] {
+    display: none !important;
+}
+
 
 /* ================================
    APP
