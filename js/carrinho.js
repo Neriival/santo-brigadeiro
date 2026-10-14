@@ -251,7 +251,7 @@ function renderizarCarrinho() {
                         </strong>
 
                         <p>
-                            ${item.observacao}
+                            ${escaparTextoProduto(item.observacao)}
                         </p>
 
                     </div>
@@ -266,7 +266,7 @@ function renderizarCarrinho() {
             <div class="cart-item-top">
 
                 <h3>
-                    ${item.nome}
+                    ${escaparTextoProduto(item.nome)}
                 </h3>
 
                 <button

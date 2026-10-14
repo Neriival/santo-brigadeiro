@@ -246,7 +246,7 @@ function criarDetalhesProdutoReview(item) {
         detalhes.push(`
             <p>
                 <strong>Observação:</strong>
-                ${item.observacao}
+                ${escaparTextoProduto(item.observacao)}
             </p>
         `);
 
@@ -304,7 +304,7 @@ function renderizarProdutosReview(produtos) {
 
                 <strong>
                     ${item.quantidade}x
-                    ${item.nome}
+                    ${escaparTextoProduto(item.nome)}
                 </strong>
 
                 <span class="review-product-price">
